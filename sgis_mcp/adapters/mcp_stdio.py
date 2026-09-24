@@ -22,8 +22,8 @@ INSTRUCTIONS = (
 
 _ADM = {"type": "string", "description": "행정구역코드: 시도 2자리 · 시군구 5자리 · 읍면동 7/8자리. 비우면 전국(시도 목록). "
                                           "모르면 sgis_find_region으로 찾을 것"}
-_LOW = {"type": "integer", "enum": [0, 1, 2], "default": 1,
-        "description": "0 = 그 지역만 · 1 = 한 단계 아래 지역들(기본) · 2 = 두 단계 아래"}
+_LOW = {"type": "integer", "enum": [0, 1, 2],
+        "description": "0 = 그 지역만 · 1 = 한 단계 아래 지역들 · 2 = 두 단계 아래. 비우면 자동(읍면동 코드면 0, 그 밖은 1)"}
 _YEAR = {"type": "integer", "description": "기준연도(4자리). 비우면 SGIS가 알려 주는 최신 연도"}
 _CODES = lambda table: "; ".join(f"{k}={v}" for k, v in table.items())
 
@@ -108,13 +108,13 @@ class McpServer:
         self.dispatch: Dict[str, Callable[[dict], Any]] = {
             "sgis_find_region": lambda a: service.find_region(a.get("query", ""), int(a.get("limit", 5) or 5)),
             "sgis_data_years": lambda a: service.data_years(),
-            "sgis_population_summary": lambda a: service.population_summary(a.get("adm_cd"), a.get("low_search", 1), a.get("year")),
-            "sgis_population_by_age": lambda a: service.population_by_age(a.get("adm_cd"), a.get("low_search", 1), a.get("year"),
+            "sgis_population_summary": lambda a: service.population_summary(a.get("adm_cd"), a.get("low_search"), a.get("year")),
+            "sgis_population_by_age": lambda a: service.population_by_age(a.get("adm_cd"), a.get("low_search"), a.get("year"),
                                                                           a.get("age_type"), a.get("gender", 0)),
-            "sgis_households": lambda a: service.households(a.get("adm_cd"), a.get("low_search", 1), a.get("year"),
+            "sgis_households": lambda a: service.households(a.get("adm_cd"), a.get("low_search"), a.get("year"),
                                                             a.get("household_type")),
-            "sgis_houses": lambda a: service.houses(a.get("adm_cd"), a.get("low_search", 1), a.get("year"), a.get("house_type")),
-            "sgis_companies": lambda a: service.companies(a.get("adm_cd"), a.get("low_search", 1), a.get("year"),
+            "sgis_houses": lambda a: service.houses(a.get("adm_cd"), a.get("low_search"), a.get("year"), a.get("house_type")),
+            "sgis_companies": lambda a: service.companies(a.get("adm_cd"), a.get("low_search"), a.get("year"),
                                                           a.get("class_code"), a.get("theme_cd")),
             "sgis_industry_codes": lambda a: service.industry_codes(a.get("year"), a.get("class_code")),
             "sgis_geocode": lambda a: service.geocode(a.get("address", ""), int(a.get("limit", 5) or 5)),

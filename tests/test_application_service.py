@@ -173,3 +173,13 @@ def test_uc2_citation_lists_stage_trids_walked():
     s, _ = svc()
     out = s.find_region("경남 창원시 의창구 팔용동")
     assert out["citation"]["tr_id"] == "t_API_0701, t_API_0701, t_API_0701"
+
+
+def test_low_search_auto_zero_for_eupmyeondong_one_otherwise():
+    s, port = svc()
+    s.population_summary("38111510")
+    assert port.calls[-1][1]["low_search"] == 0
+    s.population_summary("38111")
+    assert port.calls[-1][1]["low_search"] == 1
+    s.population_summary("38111510", low_search=1)
+    assert port.calls[-1][1]["low_search"] == 1

@@ -25,7 +25,9 @@ def _cite(r: ApiResponse, survey: str, year: Optional[int]) -> dict:
     return Citation(survey=survey, year=year, api_id=r.api_id, tr_id=r.tr_id, fixture=r.fixture).to_dict()
 
 
-def _low(low_search) -> int:
+def _low(low_search, code=None) -> int:
+    if low_search in (None, ""):  # 자동: 읍면동이면 그 지역만(아래는 집계구), 그 밖은 한 단계 아래
+        return 0 if code is not None and code.level == "eupmyeondong" else 1
     try:
         v = int(low_search)
     except (TypeError, ValueError):
@@ -164,7 +166,7 @@ class SgisService:
     def _stats(self, path: str, adm_cd, low_search, year: int, extra: Dict[str, Any], survey: str,
                fields: Optional[List[str]] = None) -> dict:
         code = AdmCode.parse_optional(adm_cd)
-        params = {"year": year, "low_search": _low(low_search), "adm_cd": code.value if code else None}
+        params = {"year": year, "low_search": _low(low_search, code), "adm_cd": code.value if code else None}
         params.update({k: v for k, v in extra.items() if v is not None})
         r = self.port.call(path, params)
         rows = parse_rows(r.result, fields)
@@ -172,11 +174,11 @@ class SgisService:
         return {"year": year, "adm_cd": code.value if code else None, "low_search": params["low_search"],
                 "rows": rows, "fields": {k: FIELD_LABELS.get(k, k) for k in keys}, "citation": _cite(r, survey, year)}
 
-    def population_summary(self, adm_cd=None, low_search=1, year=None) -> dict:
+    def population_summary(self, adm_cd=None, low_search=None, year=None) -> dict:
         y = self._year(year, "census")
         return self._stats("stats/population.json", adm_cd, low_search, y, {}, SURVEY_CENSUS + "(총조사 주요지표)")
 
-    def population_by_age(self, adm_cd=None, low_search=1, year=None, age_type=None, gender=0) -> dict:
+    def population_by_age(self, adm_cd=None, low_search=None, year=None, age_type=None, gender=0) -> dict:
         y = self._year(year, "census")
         g = int(gender) if str(gender).strip().isdigit() else -1
         if g not in GENDER:
@@ -188,7 +190,7 @@ class SgisService:
                     "gender": g, "gender_label": GENDER[g]})
         return out
 
-    def households(self, adm_cd=None, low_search=1, year=None, household_type=None) -> dict:
+    def households(self, adm_cd=None, low_search=None, year=None, household_type=None) -> dict:
         y = self._year(year, "census")
         ht = resolve_household_type(household_type)
         out = self._stats("stats/household.json", adm_cd, low_search, y, {"household_type": ht}, SURVEY_CENSUS)
@@ -196,7 +198,7 @@ class SgisService:
         out["household_label"] = ", ".join(HOUSEHOLD_TYPES[c] for c in ht.split(",")) if ht else "전체"
         return out
 
-    def houses(self, adm_cd=None, low_search=1, year=None, house_type=None) -> dict:
+    def houses(self, adm_cd=None, low_search=None, year=None, house_type=None) -> dict:
         y = self._year(year, "census")
         ht = resolve_house_type(house_type)
         out = self._stats("stats/house.json", adm_cd, low_search, y, {"house_type": ht}, SURVEY_CENSUS)
@@ -204,7 +206,7 @@ class SgisService:
         out["house_label"] = ", ".join(HOUSE_TYPES[c] for c in ht.split(",")) if ht else "전체"
         return out
 
-    def companies(self, adm_cd=None, low_search=1, year=None, class_code=None, theme_cd=None) -> dict:
+    def companies(self, adm_cd=None, low_search=None, year=None, class_code=None, theme_cd=None) -> dict:
         if class_code and theme_cd:
             raise InvalidArgument("class_code(산업분류)와 theme_cd(테마)는 같이 쓸 수 없습니다(SGIS 문서)")
         y = self._year(year, "company")

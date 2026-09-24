@@ -91,3 +91,10 @@ def test_every_stats_tool_result_carries_citation(tmp_path):
         assert o["result"]["isError"] is False, (name, o)
         b = body(o)
         assert "citation" in b and b["citation"]["text"].startswith("[가짜 응답"), name
+
+
+def test_fixture_single_dong_is_filtered_from_parent_file(tmp_path):
+    out = rpc([INIT, call(2, "sgis_population_summary", {"adm_cd": "38111530"})],
+              args=["--fixtures", FIXTURES, "--out", str(tmp_path)])
+    rows = body(out[1])["rows"]
+    assert [r["adm_cd"] for r in rows] == ["38111530"] and rows[0]["tot_ppltn"] == 3000
