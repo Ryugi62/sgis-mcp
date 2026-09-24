@@ -92,3 +92,9 @@
 - 인증키는 환경변수 또는 `--env-file`(KEY=VALUE)로만. 응답·로그에 `accessToken`·보안 Key를 쓰지 않는다.
 - `SGIS_MCP_LOG=<경로>`면 호출마다 `{ts, tool, api, trId, ms, ok, rows}` 한 줄(JSONL) — 활용 성과의 근거자료.
 - 가짜 응답 모드(`SGIS_MCP_FIXTURES=<폴더>`)는 결과의 `citation.fixture = true`로 표시한다(실데이터와 혼동 금지).
+
+## 9. 정확도 실험 (효과 측정 — 인증키 필요)
+- **UC-B** `bench/run_bench.py` — G 시도 코드순 앞 N개 시도마다 코드 가운데 시군구 1곳(총인구 · 65세 이상 비율 = 2N문항, 정답은 SGIS 원값)
+  W 같은 질문을 ①AI 단독(`claude -p`, 내장 도구·웹 끔) ②AI + 이 서버로 묻는다 T 조건별 원값 일치 수 · 오차 중앙값 · 출처 표기 수.
+- 일치 기준(실행 전 고정): 인구 상대오차 ≤ 0.5% · 비율 절대오차 ≤ 0.1%p. 채점은 `bench/scoring.py`(순수 함수, 테스트).
+- 결과는 `bench/out/`(정답 trId 포함). 숫자는 실행 결과만 인용한다.

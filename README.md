@@ -74,6 +74,11 @@ AI는 `sgis_find_region`으로 코드를 찾고 → 통계 도구를 부르고 �
 `SGIS_MCP_LOG=/경로/calls.jsonl`을 주면 호출마다 `{도구, API, trId, 소요 ms, 성공 여부, 행 수}` 한 줄을 남깁니다
 (인증키·토큰은 기록하지 않습니다). 라이브 검증 기록: [`docs/live-check.md`](docs/live-check.md).
 
+## 정확도 실험
+
+`python3 bench/run_bench.py --env-file <키 파일>` — 같은 질문을 AI 단독과 AI + SGIS MCP로 물어 SGIS 원값과 대조합니다
+(일치 기준을 실행 전에 고정: 인구 ±0.5%, 비율 ±0.1%p). 결과는 `bench/out/summary.md`.
+
 ## 개발
 
 - 명세: [`SPEC.md`](SPEC.md) — 목적 · 숫자 성공조건 · Given/When/Then · 외부 사실(2026-09-24 실측)

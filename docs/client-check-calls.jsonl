@@ -1,0 +1,13 @@
+{"kind": "api", "path": "auth/authentication.json", "api": "API_0101", "trId": "fixture_API_0101", "ms": 0.0, "ok": true, "rows": 0, "errCd": 0, "ts": "2026-09-24T13:54:42+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "fx_API_0701_sido", "ms": 0.1, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-24T13:54:42+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "fx_API_0701_38", "ms": 0.1, "ok": true, "rows": 2, "errCd": 0, "ts": "2026-09-24T13:54:42+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "fx_API_0701_38111", "ms": 0.1, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-24T13:54:42+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 1.7, "ok": true, "ts": "2026-09-24T13:54:42+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 0.2, "ok": true, "ts": "2026-09-24T13:54:43+09:00"}
+{"kind": "api", "path": "year/data.json", "api": "API_1501", "trId": "fx_API_1501", "ms": 0.2, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-24T13:54:45+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "fx_API_0301", "ms": 0.1, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-24T13:54:45+09:00"}
+{"kind": "tool", "tool": "sgis_population_summary", "ms": 0.9, "ok": true, "ts": "2026-09-24T13:54:45+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "fx_API_0301", "ms": 0.1, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-24T13:54:46+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0302", "trId": "fx_API_0302", "ms": 0.1, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-24T13:54:46+09:00"}
+{"kind": "api", "path": "boundary/hadmarea.geojson", "api": "API_0704", "trId": "fx_API_0704", "ms": 0.1, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-24T13:54:46+09:00"}
+{"kind": "tool", "tool": "sgis_choropleth", "ms": 1.8, "ok": true, "ts": "2026-09-24T13:54:46+09:00"}
