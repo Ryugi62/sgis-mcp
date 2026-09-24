@@ -1,0 +1,19 @@
+{
+ "id": "API_0708",
+ "result": [
+  {
+   "sgg_cd": "030",
+   "emdong_cd": "570",
+   "addr_en": "Tanbang-dong Seo-gu Daejeon",
+   "full_addr": "대전광역시 서구 탄방동",
+   "sido_nm": "대전광역시",
+   "sgg_nm": "서구",
+   "emdong_nm": "탄방동",
+   "sido_cd": "25"
+  }
+ ],
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "M*uU_API_0708_1699852683949",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

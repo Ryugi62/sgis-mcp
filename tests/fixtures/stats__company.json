@@ -1,0 +1,21 @@
+{
+ "id": "API_0304",
+ "result": [
+  {
+   "adm_cd": "11010530",
+   "adm_nm": "사직동",
+   "corp_cnt": "817",
+   "tot_worker": "3588"
+  },
+  {
+   "adm_cd": "11010540",
+   "adm_nm": "삼청동",
+   "corp_cnt": "215",
+   "tot_worker": "1208"
+  }
+ ],
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "ZAye_API_0304_1461635199133",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

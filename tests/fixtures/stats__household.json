@@ -1,0 +1,23 @@
+{
+ "id": "API_0305",
+ "result": [
+  {
+   "family_member_cnt": 2518,
+   "adm_cd": "11040520",
+   "adm_nm": "왕십리2동",
+   "avg_family_member_cnt": "2",
+   "household_cnt": "1248"
+  },
+  {
+   "family_member_cnt": 3345,
+   "adm_cd": "11040540",
+   "adm_nm": "마장동",
+   "avg_family_member_cnt": "2",
+   "household_cnt": "1660"
+  }
+ ],
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "eZHl_API_0305_1419234860163",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

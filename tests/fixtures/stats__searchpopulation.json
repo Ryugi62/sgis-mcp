@@ -1,0 +1,19 @@
+{
+ "id": "API_0302",
+ "result": [
+  {
+   "adm_cd": "11040550",
+   "adm_nm": "사근동",
+   "population": 3
+  },
+  {
+   "adm_cd": "11040680",
+   "adm_nm": "성수2가3동",
+   "population": 2
+  }
+ ],
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "O3*b_API_0302_1419229378262",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

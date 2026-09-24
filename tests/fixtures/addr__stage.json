@@ -1,0 +1,29 @@
+{
+ "id": "API_0701",
+ "errCd": 0,
+ "errMsg": "Success",
+ "trId": "fx_API_0701_sido",
+ "result": [
+  {
+   "cd": "11",
+   "addr_name": "서울특별시",
+   "full_addr": "서울특별시"
+  },
+  {
+   "cd": "21",
+   "addr_name": "부산광역시",
+   "full_addr": "부산광역시"
+  },
+  {
+   "cd": "25",
+   "addr_name": "대전광역시",
+   "full_addr": "대전광역시"
+  },
+  {
+   "cd": "38",
+   "addr_name": "경상남도",
+   "full_addr": "경상남도"
+  }
+ ],
+ "_fixture": "합성 — 모양은 SGIS 문서 예제, 코드·이름·값은 테스트용(실제 통계 아님)"
+}

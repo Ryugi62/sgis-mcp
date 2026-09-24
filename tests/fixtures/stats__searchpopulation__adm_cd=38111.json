@@ -1,0 +1,29 @@
+{
+ "id": "API_0302",
+ "errCd": 0,
+ "errMsg": "Success",
+ "trId": "fx_API_0302",
+ "result": [
+  {
+   "adm_cd": "38111510",
+   "adm_nm": "가동",
+   "population": 100
+  },
+  {
+   "adm_cd": "38111520",
+   "adm_nm": "나동",
+   "population": 300
+  },
+  {
+   "adm_cd": "38111530",
+   "adm_nm": "다동",
+   "population": 900
+  },
+  {
+   "adm_cd": "38111540",
+   "adm_nm": "라동",
+   "population": 400
+  }
+ ],
+ "_fixture": "합성 — 모양은 SGIS 문서 예제, 코드·이름·값은 테스트용(실제 통계 아님)"
+}

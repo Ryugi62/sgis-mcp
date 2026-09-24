@@ -1,0 +1,40 @@
+{
+ "id": "API_0707",
+ "result": {
+  "totalcount": "1",
+  "resultdata": [
+   {
+    "ri_nm": "null",
+    "road_nm_sub_no": "0",
+    "sgg_cd": "25030",
+    "adm_cd": "25030600",
+    "road_nm_main_no": "189",
+    "leg_cd": "3017011200",
+    "road_nm": "청사로",
+    "bd_matches": "4",
+    "bd_sub_nm": "null",
+    "addr_type": "6",
+    "sido_nm": "대전광역시",
+    "sgg_nm": "서구",
+    "sido_cd": "25",
+    "road_cd": "3166051",
+    "bd_main_nm": "null",
+    "adm_nm": "둔산2동",
+    "jibun_main_no": "null",
+    "origin_xy": "BUILD",
+    "jibun_sub_no": "null",
+    "ri_cd": "3017011200",
+    "y": "36.36172224312449",
+    "leg_nm": "둔산동",
+    "x": "127.38083451894656"
+   }
+  ],
+  "matching": "0",
+  "pagenum": "1",
+  "returncount": "1"
+ },
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "6g**_API_0707_1699836804371",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

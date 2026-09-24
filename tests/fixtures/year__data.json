@@ -1,0 +1,27 @@
+{
+ "id": "API_1501",
+ "errCd": 0,
+ "errMsg": "Success",
+ "trId": "fx_API_1501",
+ "result": {
+  "tin_yr": [
+   "2015",
+   "2020",
+   "2024"
+  ],
+  "tcorp_yr": [
+   "2022",
+   "2023"
+  ],
+  "lin_yr": "2024",
+  "lcorp_yr": "2023",
+  "laff_yr": "2020",
+  "lboudary_yr": "2024",
+  "tboudary_yr": [
+   "2023",
+   "2024"
+  ],
+  "loa_yr": "2024"
+ },
+ "_fixture": "합성 — 모양은 SGIS 문서 예제, 코드·이름·값은 테스트용(실제 통계 아님)"
+}

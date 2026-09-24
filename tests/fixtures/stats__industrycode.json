@@ -1,0 +1,29 @@
+{
+ "id": "API_0303",
+ "result": [
+  {
+   "class_code": "A011",
+   "class_nm": "작물 재배업"
+  },
+  {
+   "class_code": "A012",
+   "class_nm": "축산업"
+  },
+  {
+   "class_code": "A013",
+   "class_nm": "작물재배 및 축산 복합농업"
+  },
+  {
+   "class_code": "A014",
+   "class_nm": "작물재배 및 축산 관련 서비스업"
+  },
+  {
+   "class_code": "A015",
+   "class_nm": "수렵 및 관련 서비스업"
+  }
+ ],
+ "errMsg": "Success",
+ "errCd": 0,
+ "trId": "i5Bm_API_0303_1419231536360",
+ "_fixture": "SGIS 개발지원센터 문서 호출결과 예제(2026-09-24 curl, 원문 그대로)"
+}

@@ -1,0 +1,37 @@
+{
+ "id": "API_0301",
+ "errCd": 0,
+ "errMsg": "Success",
+ "trId": "fx_API_0301",
+ "result": [
+  {
+   "adm_cd": "38111510",
+   "adm_nm": "가동",
+   "tot_ppltn": "1000",
+   "avg_age": "40.1",
+   "imga_ppltn": "N/A"
+  },
+  {
+   "adm_cd": "38111520",
+   "adm_nm": "나동",
+   "tot_ppltn": "2000",
+   "avg_age": "38.2",
+   "imga_ppltn": "N/A"
+  },
+  {
+   "adm_cd": "38111530",
+   "adm_nm": "다동",
+   "tot_ppltn": "3000",
+   "avg_age": "45.3",
+   "imga_ppltn": "N/A"
+  },
+  {
+   "adm_cd": "38111540",
+   "adm_nm": "라동",
+   "tot_ppltn": "4000",
+   "avg_age": "42.0",
+   "imga_ppltn": "N/A"
+  }
+ ],
+ "_fixture": "합성 — 모양은 SGIS 문서 예제, 코드·이름·값은 테스트용(실제 통계 아님)"
+}
