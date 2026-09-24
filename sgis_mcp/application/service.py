@@ -178,7 +178,8 @@ class SgisService:
         y = self._year(year, "census")
         return self._stats("stats/population.json", adm_cd, low_search, y, {}, SURVEY_CENSUS + "(총조사 주요지표)")
 
-    def population_by_age(self, adm_cd=None, low_search=None, year=None, age_type=None, gender=0) -> dict:
+    def population_by_age(self, adm_cd=None, low_search=None, year=None, age_type=None, gender=0,
+                          with_share: bool = True) -> dict:
         y = self._year(year, "census")
         g = int(gender) if str(gender).strip().isdigit() else -1
         if g not in GENDER:
@@ -188,6 +189,16 @@ class SgisService:
                           SURVEY_CENSUS)
         out.update({"age_type": at, "age_label": ", ".join(AGE_TYPES[c] for c in at.split(",")) if at else "전체",
                     "gender": g, "gender_label": GENDER[g]})
+        if with_share and at:
+            # 비율은 서버가 계산한다(AI 암산 오류 방지): 같은 지역·연도의 총인구로 나눈 값, 소수 둘째 자리
+            tot = self.population_summary(adm_cd, out["low_search"], y)
+            base = {r["adm_cd"]: r.get("tot_ppltn") for r in tot["rows"]}
+            for row in out["rows"]:
+                t, pop = base.get(row["adm_cd"]), row.get("population")
+                row["tot_ppltn"] = t
+                row["share_pct"] = round(pop / t * 100, 2) if isinstance(pop, (int, float)) and t else None
+            out["share_note"] = "share_pct = population ÷ 총인구(tot_ppltn) × 100 (전체 성별 총인구 기준)"
+            out["citations"] = [out["citation"], tot["citation"]]
         return out
 
     def households(self, adm_cd=None, low_search=None, year=None, household_type=None) -> dict:
@@ -282,7 +293,7 @@ class SgisService:
         citations.append(summary["citation"])
         if age_type not in (None, "", []):
             at = resolve_age_type(age_type)
-            age = self.population_by_age(parent.value if parent else None, 1, y, at, 0)
+            age = self.population_by_age(parent.value if parent else None, 1, y, at, 0, with_share=False)
             citations.append(age["citation"])
             tot = {r["adm_cd"]: r.get("tot_ppltn") for r in summary["rows"]}
             values = {}

@@ -16,6 +16,7 @@
 | S6 | 테스트 ≥ 40, 네트워크 0, 레이어 역방향 import 0 | `pytest -q` · `tests/test_layers.py` |
 | S7 | 라이브 검증: 인증키로 12도구 실호출 → `docs/live-check.md`(trId 목록) | `scripts/live_smoke.py` |
 | S8 | initialize 응답 < 1초(콜드 스타트) | 부팅 테스트 |
+| S9 | SGIS 부하 최소화: 같은 요청은 다시 보내지 않는다(세션 캐시 256건) · 토큰·주소 목록 재사용 | 계약 테스트 |
 
 ## 2. 비목표
 지도 API(JavaScript) 래핑 · 웹 UI · 상용키 전환 절차 · 통계 해석/예측 · SGIS 비공개(내부) 엔드포인트 사용.
@@ -44,7 +45,7 @@
 - **UC-1 기준연도** `sgis_data_years` — G 가짜 `year/data.json` W 호출 T 최신 인구·사업체·경계 연도와 전체 목록.
 - **UC-2 지역 찾기** `sgis_find_region` — G 시도·시군구·읍면동 단계 목록 W 「경남 창원시 의창구 팔용동」 T 8자리 코드 1건이 1순위. 시도를 못 찾으면 지오코딩으로 대체(how=geocode).
 - **UC-3 총조사 주요지표** `sgis_population_summary` — T 총인구·평균나이·인구밀도·노령화지수 … 숫자형 + 출처.
-- **UC-4 연령·성별 인구** `sgis_population_by_age` — `age_type`(코드 01~41 또는 「65세이상」 같은 이름) · `gender` → 인구수 + 출처.
+- **UC-4 연령·성별 인구** `sgis_population_by_age` — `age_type`(코드 01~41 또는 「65세이상」 같은 이름) · `gender` → 인구수 + 출처. 비율(`share_pct` = 인구 ÷ 같은 지역 총인구 × 100)은 서버가 계산해 붙인다(AI 암산 오류 방지).
 - **UC-5 가구** `sgis_households` — `household_type`(A0 = 1인가구 …).
 - **UC-6 주택** `sgis_houses` — `house_type`(02 = 아파트 …).
 - **UC-7 사업체** `sgis_companies` — `class_code`(산업분류) 또는 `theme_cd`, 둘 다 주면 오류(문서 「같이 사용할 수 없음」).

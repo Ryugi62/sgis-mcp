@@ -7,6 +7,7 @@ from __future__ import annotations
 import json
 import re
 import time
+from collections import OrderedDict
 from typing import Any, Callable, Dict, Optional, Tuple
 
 try:
@@ -53,6 +54,8 @@ class SgisHttpGateway:
         self.timeout, self.clock, self.on_call = timeout, clock, on_call
         self._token: Optional[str] = None
         self._expires: float = 0.0
+        self._cache: "OrderedDict[tuple, ApiResponse]" = OrderedDict()  # 같은 요청은 SGIS에 다시 보내지 않는다(부하 최소화)
+        self.cache_size = 256
 
     # ------------------------------------------------------------------
     def _get_json(self, path: str, params: Dict[str, str]) -> Tuple[dict, float]:
@@ -100,12 +103,26 @@ class SgisHttpGateway:
             return self._token
         return self._authenticate()
 
+    def _remember(self, key: tuple, resp: ApiResponse) -> ApiResponse:
+        self._cache[key] = resp
+        while len(self._cache) > self.cache_size:
+            self._cache.popitem(last=False)
+        return resp
+
     # SgisPort ---------------------------------------------------------
     def call(self, path: str, params: Dict[str, Any]) -> ApiResponse:
         if not self.key or not self.secret:
             raise NotConfigured("SGIS 인증키가 없습니다 — 환경변수 SGIS_CONSUMER_KEY(서비스 ID)·SGIS_CONSUMER_SECRET(보안 Key)를 "
                                 "설정하세요. 발급: https://sgis.mods.go.kr/developer (테스트키 신청 즉시 발급)")
         clean = _clean(params)
+        key = (path, tuple(sorted(clean.items())))
+        if key in self._cache:
+            self._cache.move_to_end(key)
+            hit = self._cache[key]
+            if self.on_call:
+                self.on_call({"kind": "api", "path": path, "api": hit.api_id, "trId": hit.tr_id, "ms": 0.0, "ok": True,
+                              "rows": _rows(hit.result), "errCd": 0, "cached": True})
+            return hit
         for attempt in (1, 2):
             token = self._access_token()
             data, ms = self._get_json(path, dict(clean, accessToken=token))
@@ -115,12 +132,13 @@ class SgisHttpGateway:
             if err == 0:
                 resp = ApiResponse(data=data, api_id=api_id, tr_id=tr_id, fixture=fixture)
                 self._log(path, api_id, tr_id, ms, True, _rows(resp.result), 0)
-                return resp
+                return self._remember(key, resp)
             self._log(path, api_id, tr_id, ms, False, 0, err)
             if err == -401 and attempt == 1:
                 self._token = None
                 continue
             if err == -100:
-                return ApiResponse(data={"result": []}, api_id=api_id, tr_id=tr_id, fixture=fixture, empty=True)
+                return self._remember(key, ApiResponse(data={"result": []}, api_id=api_id, tr_id=tr_id,
+                                                       fixture=fixture, empty=True))
             raise SgisApiError(err, data.get("errMsg", ""), api_id, tr_id)
         raise SgisApiError(-401, "재인증 후에도 인증 실패")  # pragma: no cover

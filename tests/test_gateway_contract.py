@@ -39,7 +39,7 @@ def test_default_base_is_mods_domain():
 def test_authenticates_once_and_reuses_token():
     g, t = gw([AUTH_OK, POP_OK, POP_OK])
     r1 = g.call("stats/population.json", {"year": 2024, "adm_cd": None})
-    g.call("stats/population.json", {"year": 2024})
+    g.call("stats/population.json", {"year": 2023})
     assert [u.rsplit("/", 1)[-1] for u, _ in t.calls] == ["authentication.json", "population.json", "population.json"]
     assert t.calls[0][1] == {"consumer_key": "KEY", "consumer_secret": "SECRET"}
     assert t.calls[1][1]["accessToken"] == "tok-1" and "adm_cd" not in t.calls[1][1]  # None 파라미터는 뺀다
@@ -85,7 +85,7 @@ def test_token_refreshes_after_expiry():
     g = SgisHttpGateway(t, "K", "S", clock=lambda: clock["t"])
     g.call("stats/population.json", {"year": 1})
     clock["t"] += 90  # 만료 60초 전 여유 안쪽 → 새로 받는다
-    g.call("stats/population.json", {"year": 1})
+    g.call("stats/population.json", {"year": 2})
     assert t.calls[-1][1]["accessToken"] == "tok-2"
 
 
@@ -109,3 +109,20 @@ def test_call_log_has_trid_and_no_secrets():
 def test_fixture_marker_sets_flag():
     g, _ = gw([AUTH_OK, (200, {"errCd": 0, "id": "API_0301", "trId": "f", "result": [], "_fixture": "synthetic"})])
     assert g.call("stats/population.json", {"year": 1}).fixture is True
+
+
+def test_identical_request_served_from_cache_without_sgis_call():
+    records = []
+    g, t = gw([AUTH_OK, POP_OK], log=records.append)
+    a = g.call("stats/population.json", {"year": 2024, "adm_cd": "11"})
+    b = g.call("stats/population.json", {"adm_cd": "11", "year": 2024})  # 순서만 다른 같은 요청
+    assert a is b and len(t.calls) == 2  # 인증 1 + 조회 1
+    assert records[-1]["cached"] is True and records[-1]["trId"] == "p1"
+
+
+def test_cache_is_bounded():
+    g, t = gw([AUTH_OK] + [POP_OK] * 3)
+    g.cache_size = 2
+    for i in range(3):
+        g.call("stats/population.json", {"year": i})
+    assert len(g._cache) == 2

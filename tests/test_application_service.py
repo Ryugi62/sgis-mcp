@@ -80,7 +80,8 @@ def test_uc4_age_by_name_and_gender():
     s, port = svc()
     out = s.population_by_age("38111", age_type="65세이상", gender=2, year=2020)
     assert out["age_type"] == "24" and out["age_label"] == "65세이상" and out["gender_label"] == "여자"
-    assert port.calls[-1][1]["age_type"] == "24" and port.calls[-1][1]["gender"] == 2
+    age_call = [q for pth, q in port.calls if pth == "stats/searchpopulation.json"][-1]
+    assert age_call["age_type"] == "24" and age_call["gender"] == 2
     with pytest.raises(InvalidArgument):
         s.population_by_age("38111", gender=3)
 
@@ -183,3 +184,14 @@ def test_low_search_auto_zero_for_eupmyeondong_one_otherwise():
     assert port.calls[-1][1]["low_search"] == 1
     s.population_summary("38111510", low_search=1)
     assert port.calls[-1][1]["low_search"] == 1
+
+
+def test_uc4_share_pct_computed_by_server():
+    s, port = svc()
+    out = s.population_by_age("38111", age_type="65세이상")
+    r = {row["adm_cd"]: row for row in out["rows"]}
+    assert r["38111510"]["share_pct"] == 25.0 and r["38111510"]["tot_ppltn"] == 1000
+    assert r["38111520"]["share_pct"] == 15.0
+    assert len(out["citations"]) == 2 and "share_note" in out
+    out2 = s.population_by_age("38111", age_type="65세이상", with_share=False)
+    assert "share_pct" not in out2["rows"][0]
