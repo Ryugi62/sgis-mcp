@@ -11,6 +11,7 @@ from typing import Dict, List, Optional
 _ANS = re.compile(r"답\s*[:：]\s*(.+)")
 _NUM = r"\d[\d,]*(?:\.\d+)?"
 CITE_WORDS = ("SGIS", "trId", "국가데이터처", "통계청", "KOSIS", "인구주택총조사", "출처")
+_TR = re.compile(r"_API_\d{4}_\d{10,}")  # SGIS 거래번호(trId) — SGIS 쪽 기록과 대조할 수 있는 출처
 
 
 def _to_float(s: str) -> float:
@@ -41,7 +42,8 @@ def extract_number(text: str, kind: str) -> Optional[float]:
 def score(truth: float, answer_text: str, kind: str) -> Dict:
     got = extract_number(answer_text, kind)
     if got is None:
-        return {"got": None, "exact": False, "err_pct": None, "cited": _cited(answer_text)}
+        return {"got": None, "exact": False, "err_pct": None, "cited": _cited(answer_text),
+                "tr_cited": _tr_cited(answer_text)}
     if kind == "ratio":
         err = abs(got - truth)
         exact = err <= 0.1
@@ -49,11 +51,17 @@ def score(truth: float, answer_text: str, kind: str) -> Dict:
     else:
         err_pct = round(abs(got - truth) / truth * 100, 2) if truth else None
         exact = err_pct is not None and err_pct <= 0.5
-    return {"got": got, "exact": bool(exact), "err_pct": err_pct, "cited": _cited(answer_text)}
+    return {"got": got, "exact": bool(exact), "err_pct": err_pct, "cited": _cited(answer_text),
+            "tr_cited": _tr_cited(answer_text)}
 
 
 def _cited(text: str) -> bool:
     return any(w in (text or "") for w in CITE_WORDS)
+
+
+def _tr_cited(text: str) -> bool:
+    """검증 가능한 출처: SGIS 거래번호(trId)가 답에 있다."""
+    return bool(_TR.search(text or ""))
 
 
 def summarize(rows: List[Dict]) -> Dict:
@@ -64,5 +72,6 @@ def summarize(rows: List[Dict]) -> Dict:
         errs = [r["err_pct"] for r in rs if r["err_pct"] is not None]
         out[cond] = {"n": len(rs), "exact": sum(r["exact"] for r in rs),
                      "median_err_pct": round(median(errs), 2) if errs else None,
-                     "no_number": sum(r["err_pct"] is None for r in rs), "cited": sum(r["cited"] for r in rs)}
+                     "no_number": sum(r["err_pct"] is None for r in rs), "cited": sum(r["cited"] for r in rs),
+                     "tr_cited": sum(bool(r.get("tr_cited")) for r in rs)}
     return out

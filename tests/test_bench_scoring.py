@@ -35,5 +35,18 @@ def test_summarize_by_condition():
             {"condition": "mcp", "exact": True, "err_pct": 0.0, "cited": True},
             {"condition": "mcp", "exact": True, "err_pct": None, "cited": True}]
     s = summarize(rows)
-    assert s["llm"] == {"n": 2, "exact": 1, "median_err_pct": 2.05, "no_number": 0, "cited": 0}
+    assert s["llm"] == {"n": 2, "exact": 1, "median_err_pct": 2.05, "no_number": 0, "cited": 0, "tr_cited": 0}
     assert s["mcp"]["exact"] == 2 and s["mcp"]["no_number"] == 1 and s["mcp"]["cited"] == 2
+
+
+def test_tr_cited_needs_sgis_transaction_id():
+    # 2026-09-25 실험: AI 단독도 「SGIS에서 확인하세요」라고 써서 출처 단어 검사는 20/20 — 검증 가능한 출처(trId)를 따로 센다
+    assert score(100, "출처: … API_0301 · trId xShH_API_0301_1790331623987\n답: 100", "count")["tr_cited"] is True
+    assert score(100, "통계청 KOSIS에서 확인하세요\n답: 100", "count")["tr_cited"] is False
+
+
+def test_summarize_counts_tr_cited():
+    rows = [{"condition": "llm", "exact": False, "err_pct": 3.0, "cited": True, "tr_cited": False},
+            {"condition": "mcp", "exact": True, "err_pct": 0.0, "cited": True, "tr_cited": True}]
+    s = summarize(rows)
+    assert s["llm"]["tr_cited"] == 0 and s["mcp"]["tr_cited"] == 1

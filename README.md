@@ -72,16 +72,18 @@ AI는 `sgis_find_region`으로 코드를 찾고 → 통계 도구를 부르고 �
 ## 근거를 남기는 법
 
 `SGIS_MCP_LOG=/경로/calls.jsonl`을 주면 호출마다 `{도구, API, trId, 소요 ms, 성공 여부, 행 수}` 한 줄을 남깁니다
-(인증키·토큰은 기록하지 않습니다). 라이브 검증 기록: [`docs/live-check.md`](docs/live-check.md).
+(인증키·토큰은 기록하지 않습니다). 라이브 검증 기록(2026-09-25, 도구 12/12 실호출): [`docs/live-check.md`](docs/live-check.md) · 실제 AI 도구 연결: [`docs/client-check-live.md`](docs/client-check-live.md) · 실제 과제 적용 2건: [`docs/cases.md`](docs/cases.md).
 
 ## 정확도 실험
 
 `python3 bench/run_bench.py --env-file <키 파일>` — 같은 질문을 AI 단독과 AI + SGIS MCP로 물어 SGIS 원값과 대조합니다
 (일치 기준을 실행 전에 고정: 인구 ±0.5%, 비율 ±0.1%p). 결과는 `bench/out/summary.md`.
 
+2026-09-25 실행(20문항, claude-opus-5-5): **AI 단독 2/20 · AI + SGIS MCP 20/20** 원값 일치, 오차 중앙값 4.01% → 0.0%, SGIS 거래번호(trId) 인용 0/20 → 20/20 — 기록 사본 [`docs/bench/`](docs/bench/summary.md).
+
 ## 개발
 
-- 명세: [`SPEC.md`](SPEC.md) — 목적 · 숫자 성공조건 · Given/When/Then · 외부 사실(2026-09-24 실측)
+- 명세: [`SPEC.md`](SPEC.md) — 목적 · 숫자 성공조건 · Given/When/Then · 외부 사실(2026-09-24 실측 · 2026-09-25 라이브 확정)
 - 테스트: `python3 -m pytest -q` (네트워크 0, 가짜 응답)
 - 레이어: `domain ← application ← adapters ← infrastructure` (역방향 import는 `tests/test_layers.py`가 막음)
 

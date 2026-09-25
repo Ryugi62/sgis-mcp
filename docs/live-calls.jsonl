@@ -1,0 +1,29 @@
+{"kind": "api", "path": "auth/authentication.json", "api": "API_0101", "trId": "2sIE_API_0101_1790332210356", "ms": 615.5, "ok": true, "rows": 0, "errCd": 0, "ts": "2026-09-25T19:30:10+09:00"}
+{"kind": "api", "path": "year/data.json", "api": "API_9902", "trId": "C87w_API_9902_1790332210527", "ms": 167.5, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:30:10+09:00"}
+{"kind": "tool", "tool": "sgis_data_years", "ms": 784.8, "ok": true, "ts": "2026-09-25T19:30:10+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "hGu7_API_0701_1790332210643", "ms": 117.5, "ok": true, "rows": 17, "errCd": 0, "ts": "2026-09-25T19:30:10+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "zUdM_API_0701_1790332211261", "ms": 616.8, "ok": true, "rows": 22, "errCd": 0, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 737.2, "ok": true, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "dMCh_API_0301_1790332211380", "ms": 120.7, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "tool", "tool": "sgis_population_summary", "ms": 122.9, "ok": true, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "Pe3*_API_0312_1790332211487", "ms": 124.2, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "dMCh_API_0301_1790332211380", "ms": 0.0, "ok": true, "rows": 7, "errCd": 0, "cached": true, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 127.4, "ok": true, "ts": "2026-09-25T19:30:11+09:00"}
+{"kind": "api", "path": "stats/household.json", "api": "API_0305", "trId": "iGOH_API_0305_1790332212136", "ms": 625.0, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "tool", "tool": "sgis_households", "ms": 626.2, "ok": true, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "api", "path": "stats/house.json", "api": "API_0306", "trId": "00Mk_API_0306_1790332212266", "ms": 130.4, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "tool", "tool": "sgis_houses", "ms": 131.9, "ok": true, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "api", "path": "stats/industrycode.json", "api": "API_0303", "trId": "rIKE_API_0303_1790332212399", "ms": 122.0, "ok": true, "rows": 21, "errCd": 0, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "tool", "tool": "sgis_industry_codes", "ms": 122.8, "ok": true, "ts": "2026-09-25T19:30:12+09:00"}
+{"kind": "api", "path": "stats/company.json", "api": "API_0304", "trId": "RGGS_API_0304_1790332213017", "ms": 629.1, "ok": true, "rows": 22, "errCd": 0, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "tool", "tool": "sgis_companies", "ms": 631.0, "ok": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "addr/geocodewgs84.json", "api": "API_0707", "trId": "HalH_API_0707_1790332213153", "ms": 131.1, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "tool", "tool": "sgis_geocode", "ms": 132.5, "ok": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "addr/rgeocodewgs84.json", "api": "API_0708", "trId": "p0bo_API_0708_1790332213286", "ms": 134.5, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "tool", "tool": "sgis_reverse_geocode", "ms": 135.7, "ok": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "transformation/transcoord.json", "api": "API_0201", "trId": "XYXS_API_0201_1790332213427", "ms": 123.9, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "tool", "tool": "sgis_transform_coord", "ms": 125.1, "ok": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "dMCh_API_0301_1790332211380", "ms": 0.0, "ok": true, "rows": 7, "errCd": 0, "cached": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "Pe3*_API_0312_1790332211487", "ms": 0.0, "ok": true, "rows": 7, "errCd": 0, "cached": true, "ts": "2026-09-25T19:30:13+09:00"}
+{"kind": "api", "path": "boundary/hadmarea.geojson", "api": "API_0704", "trId": "augP_API_0704_1790332214045", "ms": 686.0, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:30:14+09:00"}
+{"kind": "tool", "tool": "sgis_choropleth", "ms": 705.1, "ok": true, "ts": "2026-09-25T19:30:14+09:00"}

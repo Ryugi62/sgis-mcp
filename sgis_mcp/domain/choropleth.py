@@ -90,6 +90,28 @@ def _ring_area_centroid(ring: Ring) -> Tuple[float, float, float]:
     return abs(a), cx / (6 * a), cy / (6 * a)
 
 
+def _em(text: str) -> float:
+    """글자 폭 어림(em): 한글·한자 1.0, 그 밖 0.56."""
+    return sum(1.0 if ord(ch) > 0x2E80 else 0.56 for ch in text)
+
+
+def wrap_units(text: str, max_em: float) -> List[str]:
+    """출처 줄을 폭(max_em) 안으로 나눈다 — ' · '·', '·공백 경계에서 끊고, 내용은 그대로 둔다."""
+    import re
+    parts = [p for p in re.split(r"(?<=[·,]) |(?= · )| ", text or "") if p != ""]
+    lines, cur = [], ""
+    for p in parts:
+        cand = (cur + " " + p) if cur else p
+        if cur and _em(cand) > max_em:
+            lines.append(cur)
+            cur = p.lstrip()
+        else:
+            cur = cand
+    if cur:
+        lines.append(cur)
+    return lines or [""]
+
+
 def render_svg(features: Sequence[Feature], values: Dict[str, Optional[float]], title: str, unit: str,
                source: str, subtitle: str = "", width: int = 820, label_limit: int = 40) -> str:
     pts = [p for f in features for r in f.rings for p in r]
@@ -106,7 +128,8 @@ def render_svg(features: Sequence[Feature], values: Dict[str, Optional[float]], 
     if map_h > 900:  # 세로로 긴 지역은 높이 기준으로 줄인다
         scale = 900 / bh
         map_h = 900.0
-    height = int(header + map_h + pad + 40)
+    src_lines = wrap_units(source, (width - pad * 2) / 10.5)
+    height = int(header + map_h + pad + 40 + 15 * (len(src_lines) - 1))
 
     def tx(x: float) -> float:
         return pad + (x - minx) * scale
@@ -167,6 +190,8 @@ def render_svg(features: Sequence[Feature], values: Dict[str, Optional[float]], 
         yy = ly + 24 + len(breaks) * 24
         out.append(f'<rect x="{lx}" y="{yy}" width="18" height="16" rx="3" fill="{NO_DATA}"/>')
         out.append(f'<text x="{lx + 26}" y="{yy + 12.5}" font-size="11.5" fill="{SUB}">자료 없음</text>')
-    out.append(f'<text x="{pad}" y="{height - 16}" font-size="10.5" fill="{SUB}">{escape(source)}</text>')
+    for i, line in enumerate(src_lines):
+        yy = height - 16 - 15 * (len(src_lines) - 1 - i)
+        out.append(f'<text x="{pad}" y="{yy}" class="src" font-size="10.5" fill="{SUB}">{escape(line)}</text>')
     out.append("</svg>")
     return "\n".join(out)

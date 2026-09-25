@@ -1,0 +1,26 @@
+{
+ "year": 2024,
+ "n_questions": 20,
+ "rule": "인구 상대오차 ≤ 0.5% · 비율 절대오차 ≤ 0.1%p",
+ "models": [
+  "claude-opus-5-5"
+ ],
+ "by_condition": {
+  "llm": {
+   "n": 20,
+   "exact": 2,
+   "median_err_pct": 4.01,
+   "no_number": 0,
+   "cited": 20,
+   "tr_cited": 0
+  },
+  "mcp": {
+   "n": 20,
+   "exact": 20,
+   "median_err_pct": 0.0,
+   "no_number": 0,
+   "cited": 20,
+   "tr_cited": 20
+  }
+ }
+}

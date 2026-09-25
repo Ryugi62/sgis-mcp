@@ -66,3 +66,21 @@ def test_render_svg_escapes_names():
     svg = render_svg(fs, {"A": 1}, title="a&b", unit="", source="s")
     ET.fromstring(svg)
     assert "a&amp;b" in svg
+
+
+def test_long_source_wraps_inside_width():
+    # 2026-09-25 라이브 지도: trId 3개가 붙은 출처 줄이 820px 폭을 넘어 오른쪽이 잘렸다 → 폭 안에서 줄바꿈
+    import re
+    trs = ", ".join(f"v9jD_API_03{i:02d}_1790330985757" for i in range(4))
+    src = f"출처: 국가데이터처 SGIS OpenAPI · 인구주택총조사 2024 · 행정구역경계 2024 · trId {trs}"
+    svg = render_svg(_features(), {"A": 1.0, "B": 2.0, "C": 3.0, "D": 4.0, "E": 5.0}, title="t", unit="%", source=src,
+                     width=820)
+    ET.fromstring(svg)
+    lines = re.findall(r'<text[^>]*class="src"[^>]*>([^<]*)</text>', svg)
+    assert len(lines) >= 2
+    em = lambda s: sum(1.0 if ord(ch) > 0x2E80 else 0.56 for ch in s)
+    assert all(em(s) * 10.5 <= 820 - 48 for s in lines)
+    assert "".join(lines).replace(" ", "") == src.replace(" ", "")
+    h = int(re.search(r'height="(\d+)"', svg).group(1))
+    ys = [float(y) for y in re.findall(r'<text[^>]*y="([\d.]+)"[^>]*class="src"', svg)]
+    assert max(ys) < h

@@ -1,0 +1,14 @@
+{"kind": "api", "path": "auth/authentication.json", "api": "API_0101", "trId": "Ojll_API_0101_1790331946960", "ms": 120.6, "ok": true, "rows": 0, "errCd": 0, "ts": "2026-09-25T19:25:46+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "L*QX_API_0701_1790331947060", "ms": 202.9, "ok": true, "rows": 17, "errCd": 0, "ts": "2026-09-25T19:25:47+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "ztva_API_0701_1790331947789", "ms": 626.3, "ok": true, "rows": 22, "errCd": 0, "ts": "2026-09-25T19:25:47+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "MNdM_API_0701_1790331947897", "ms": 103.4, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:25:47+09:00"}
+{"kind": "api", "path": "addr/geocodewgs84.json", "api": "API_0707", "trId": "RVpU_API_0707_1790331948027", "ms": 135.2, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:25:48+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 1196.6, "ok": true, "ts": "2026-09-25T19:25:48+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 0.4, "ok": true, "ts": "2026-09-25T19:25:48+09:00"}
+{"kind": "api", "path": "year/data.json", "api": "API_9902", "trId": "QWU2_API_9902_1790331950336", "ms": 115.3, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:25:50+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "59ti_API_0301_1790331950455", "ms": 126.4, "ok": true, "rows": 1, "errCd": 0, "ts": "2026-09-25T19:25:50+09:00"}
+{"kind": "tool", "tool": "sgis_population_summary", "ms": 242.5, "ok": true, "ts": "2026-09-25T19:25:50+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "zaNC_API_0301_1790331951079", "ms": 136.2, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:25:51+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "Tu8a_API_0312_1790331951214", "ms": 153.1, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:25:51+09:00"}
+{"kind": "api", "path": "boundary/hadmarea.geojson", "api": "API_0704", "trId": "9Gxg_API_0704_1790331951368", "ms": 205.9, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:25:51+09:00"}
+{"kind": "tool", "tool": "sgis_choropleth", "ms": 511.0, "ok": true, "ts": "2026-09-25T19:25:51+09:00"}

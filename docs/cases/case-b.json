@@ -1,0 +1,683 @@
+{
+ "question": "SGIS 도구로 경상남도 창원시 5개 구(의창구·성산구·마산합포구·마산회원구·진해구)의 읍면동별 65세 이상 인구와 총인구(2024년)를 조회해 줘. 답은 JSON 한 덩어리로만: {\"year\":..., \"rows\":[{\"gu\":..., \"dong\":..., \"adm_cd\":..., \"pop65\":..., \"tot_ppltn\":..., \"share_pct\":...}], \"citations\":[citation.text 원문 …]}",
+ "answer": "```json\n{\"year\":2024,\"rows\":[\n{\"gu\":\"의창구\",\"dong\":\"동읍\",\"adm_cd\":\"38111110\",\"pop65\":4723,\"tot_ppltn\":17939,\"share_pct\":26.33},\n{\"gu\":\"의창구\",\"dong\":\"북면\",\"adm_cd\":\"38111310\",\"pop65\":6225,\"tot_ppltn\":42096,\"share_pct\":14.79},\n{\"gu\":\"의창구\",\"dong\":\"대산면\",\"adm_cd\":\"38111320\",\"pop65\":2449,\"tot_ppltn\":6911,\"share_pct\":35.44},\n{\"gu\":\"의창구\",\"dong\":\"의창동\",\"adm_cd\":\"38111510\",\"pop65\":7804,\"tot_ppltn\":47749,\"share_pct\":16.34},\n{\"gu\":\"의창구\",\"dong\":\"팔룡동\",\"adm_cd\":\"38111520\",\"pop65\":3399,\"tot_ppltn\":25854,\"share_pct\":13.15},\n{\"gu\":\"의창구\",\"dong\":\"명곡동\",\"adm_cd\":\"38111530\",\"pop65\":7025,\"tot_ppltn\":38484,\"share_pct\":18.25},\n{\"gu\":\"의창구\",\"dong\":\"봉림동\",\"adm_cd\":\"38111540\",\"pop65\":6194,\"tot_ppltn\":31768,\"share_pct\":19.5},\n{\"gu\":\"성산구\",\"dong\":\"반송동\",\"adm_cd\":\"38112510\",\"pop65\":5720,\"tot_ppltn\":38269,\"share_pct\":14.95},\n{\"gu\":\"성산구\",\"dong\":\"중앙동\",\"adm_cd\":\"38112520\",\"pop65\":4526,\"tot_ppltn\":39282,\"share_pct\":11.52},\n{\"gu\":\"성산구\",\"dong\":\"상남동\",\"adm_cd\":\"38112530\",\"pop65\":3120,\"tot_ppltn\":25736,\"share_pct\":12.12},\n{\"gu\":\"성산구\",\"dong\":\"사파동\",\"adm_cd\":\"38112540\",\"pop65\":5605,\"tot_ppltn\":43638,\"share_pct\":12.84},\n{\"gu\":\"성산구\",\"dong\":\"가음정동\",\"adm_cd\":\"38112550\",\"pop65\":4375,\"tot_ppltn\":36610,\"share_pct\":11.95},\n{\"gu\":\"성산구\",\"dong\":\"성주동\",\"adm_cd\":\"38112560\",\"pop65\":2597,\"tot_ppltn\":26147,\"share_pct\":9.93},\n{\"gu\":\"성산구\",\"dong\":\"웅남동\",\"adm_cd\":\"38112570\",\"pop65\":1466,\"tot_ppltn\":8680,\"share_pct\":16.89},\n{\"gu\":\"성산구\",\"dong\":\"용지동\",\"adm_cd\":\"38112580\",\"pop65\":3745,\"tot_ppltn\":25778,\"share_pct\":14.53},\n{\"gu\":\"마산합포구\",\"dong\":\"구산면\",\"adm_cd\":\"38113310\",\"pop65\":1800,\"tot_ppltn\":3934,\"share_pct\":45.75},\n{\"gu\":\"마산합포구\",\"dong\":\"진동면\",\"adm_cd\":\"38113320\",\"pop65\":3041,\"tot_ppltn\":11585,\"share_pct\":26.25},\n{\"gu\":\"마산합포구\",\"dong\":\"진북면\",\"adm_cd\":\"38113330\",\"pop65\":1353,\"tot_ppltn\":3451,\"share_pct\":39.21},\n{\"gu\":\"마산합포구\",\"dong\":\"진전면\",\"adm_cd\":\"38113340\",\"pop65\":1881,\"tot_ppltn\":3646,\"share_pct\":51.59},\n{\"gu\":\"마산합포구\",\"dong\":\"현동\",\"adm_cd\":\"38113510\",\"pop65\":2813,\"tot_ppltn\":13971,\"share_pct\":20.13},\n{\"gu\":\"마산합포구\",\"dong\":\"가포동\",\"adm_cd\":\"38113520\",\"pop65\":688,\"tot_ppltn\":4792,\"share_pct\":14.36},\n{\"gu\":\"마산합포구\",\"dong\":\"월영동\",\"adm_cd\":\"38113530\",\"pop65\":7010,\"tot_ppltn\":42454,\"share_pct\":16.51},\n{\"gu\":\"마산합포구\",\"dong\":\"문화동\",\"adm_cd\":\"38113540\",\"pop65\":3073,\"tot_ppltn\":10767,\"share_pct\":28.54},\n{\"gu\":\"마산합포구\",\"dong\":\"완월동\",\"adm_cd\":\"38113570\",\"pop65\":2579,\"tot_ppltn\":8174,\"share_pct\":31.55},\n{\"gu\":\"마산합포구\",\"dong\":\"자산동\",\"adm_cd\":\"38113580\",\"pop65\":2862,\"tot_ppltn\":8781,\"share_pct\":32.59},\n{\"gu\":\"마산합포구\",\"dong\":\"합포동\",\"adm_cd\":\"38113640\",\"pop65\":1824,\"tot_ppltn\":6318,\"share_pct\":28.87},\n{\"gu\":\"마산합포구\",\"dong\":\"산호동\",\"adm_cd\":\"38113650\",\"pop65\":3161,\"tot_ppltn\":11327,\"share_pct\":27.91},\n{\"gu\":\"마산합포구\",\"dong\":\"반월중앙동\",\"adm_cd\":\"38113660\",\"pop65\":3780,\"tot_ppltn\":12889,\"share_pct\":29.33},\n{\"gu\":\"마산합포구\",\"dong\":\"오동동\",\"adm_cd\":\"38113670\",\"pop65\":5613,\"tot_ppltn\":17745,\"share_pct\":31.63},\n{\"gu\":\"마산합포구\",\"dong\":\"교방동\",\"adm_cd\":\"38113680\",\"pop65\":4176,\"tot_ppltn\":18431,\"share_pct\":22.66},\n{\"gu\":\"마산회원구\",\"dong\":\"내서읍\",\"adm_cd\":\"38114110\",\"pop65\":10628,\"tot_ppltn\":59935,\"share_pct\":17.73},\n{\"gu\":\"마산회원구\",\"dong\":\"회원1동\",\"adm_cd\":\"38114510\",\"pop65\":3501,\"tot_ppltn\":9305,\"share_pct\":37.62},\n{\"gu\":\"마산회원구\",\"dong\":\"회원2동\",\"adm_cd\":\"38114520\",\"pop65\":2510,\"tot_ppltn\":9272,\"share_pct\":27.07},\n{\"gu\":\"마산회원구\",\"dong\":\"회성동\",\"adm_cd\":\"38114550\",\"pop65\":2046,\"tot_ppltn\":5219,\"share_pct\":39.2},\n{\"gu\":\"마산회원구\",\"dong\":\"양덕1동\",\"adm_cd\":\"38114560\",\"pop65\":2867,\"tot_ppltn\":10142,\"share_pct\":28.27},\n{\"gu\":\"마산회원구\",\"dong\":\"양덕2동\",\"adm_cd\":\"38114570\",\"pop65\":5392,\"tot_ppltn\":31684,\"share_pct\":17.02},\n{\"gu\":\"마산회원구\",\"dong\":\"합성1동\",\"adm_cd\":\"38114580\",\"pop65\":2133,\"tot_ppltn\":8454,\"share_pct\":25.23},\n{\"gu\":\"마산회원구\",\"dong\":\"합성2동\",\"adm_cd\":\"38114590\",\"pop65\":2202,\"tot_ppltn\":8437,\"share_pct\":26.1},\n{\"gu\":\"마산회원구\",\"dong\":\"구암1동\",\"adm_cd\":\"38114600\",\"pop65\":2498,\"tot_ppltn\":7981,\"share_pct\":31.3},\n{\"gu\":\"마산회원구\",\"dong\":\"구암2동\",\"adm_cd\":\"38114610\",\"pop65\":2230,\"tot_ppltn\":8822,\"share_pct\":25.28},\n{\"gu\":\"마산회원구\",\"dong\":\"봉암동\",\"adm_cd\":\"38114620\",\"pop65\":969,\"tot_ppltn\":4005,\"share_pct\":24.19},\n{\"gu\":\"마산회원구\",\"dong\":\"석전동\",\"adm_cd\":\"38114630\",\"pop65\":4240,\"tot_ppltn\":15609,\"share_pct\":27.16},\n{\"gu\":\"진해구\",\"dong\":\"여좌동\",\"adm_cd\":\"38115540\",\"pop65\":2806,\"tot_ppltn\":7621,\"share_pct\":36.82},\n{\"gu\":\"진해구\",\"dong\":\"태백동\",\"adm_cd\":\"38115550\",\"pop65\":1405,\"tot_ppltn\":3492,\"share_pct\":40.23},\n{\"gu\":\"진해구\",\"dong\":\"경화동\",\"adm_cd\":\"38115560\",\"pop65\":2407,\"tot_ppltn\":10177,\"share_pct\":23.65},\n{\"gu\":\"진해구\",\"dong\":\"병암동\",\"adm_cd\":\"38115570\",\"pop65\":1713,\"tot_ppltn\":6726,\"share_pct\":25.47},\n{\"gu\":\"진해구\",\"dong\":\"석동\",\"adm_cd\":\"38115580\",\"pop65\":2518,\"tot_ppltn\":16706,\"share_pct\":15.07},\n{\"gu\":\"진해구\",\"dong\":\"이동\",\"adm_cd\":\"38115590\",\"pop65\":2378,\"tot_ppltn\":8226,\"share_pct\":28.91},\n{\"gu\":\"진해구\",\"dong\":\"자은동\",\"adm_cd\":\"38115600\",\"pop65\":3249,\"tot_ppltn\":19751,\"share_pct\":16.45},\n{\"gu\":\"진해구\",\"dong\":\"덕산동\",\"adm_cd\":\"38115610\",\"pop65\":1865,\"tot_ppltn\":9009,\"share_pct\":20.7},\n{\"gu\":\"진해구\",\"dong\":\"풍호동\",\"adm_cd\":\"38115620\",\"pop65\":3518,\"tot_ppltn\":24043,\"share_pct\":14.63},\n{\"gu\":\"진해구\",\"dong\":\"웅천동\",\"adm_cd\":\"38115630\",\"pop65\":1914,\"tot_ppltn\":13850,\"share_pct\":13.82},\n{\"gu\":\"진해구\",\"dong\":\"웅동1동\",\"adm_cd\":\"38115640\",\"pop65\":1788,\"tot_ppltn\":8503,\"share_pct\":21.03},\n{\"gu\":\"진해구\",\"dong\":\"웅동2동\",\"adm_cd\":\"38115650\",\"pop65\":4940,\"tot_ppltn\":45395,\"share_pct\":10.88},\n{\"gu\":\"진해구\",\"dong\":\"충무동\",\"adm_cd\":\"38115660\",\"pop65\":3586,\"tot_ppltn\":15473,\"share_pct\":23.18}\n],\"citations\":[\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · SGIS 단계별 주소 · API_0701 · trId MqE5_API_0701_1790331666953, 9DP6_API_0701_1790331667057 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId 1Erj_API_0312_1790331669926 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId C0jp_API_0301_1790331670069 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId OPXN_API_0312_1790331670538 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId QkYf_API_0301_1790331671191 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId ADIq_API_0312_1790331671565 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId PTID_API_0301_1790331671701 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId MdUG_API_0312_1790331672241 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId SnWq_API_0301_1790331672395 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId ezpb_API_0312_1790331672820 (https://sgis.mods.go.kr)\",\n\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId h=uv_API_0301_1790331672966 (https://sgis.mods.go.kr)\"\n]}\n```",
+ "sec": 41.1,
+ "turns": 7,
+ "models": [
+  "claude-opus-5-5"
+ ],
+ "calls": [
+  {
+   "kind": "api",
+   "path": "auth/authentication.json",
+   "api": "API_0101",
+   "trId": "4tEd_API_0101_1790331666331",
+   "ms": 106.4,
+   "ok": true,
+   "rows": 0,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:06+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "addr/stage.json",
+   "api": "API_0701",
+   "trId": "MqE5_API_0701_1790331666953",
+   "ms": 623.5,
+   "ok": true,
+   "rows": 17,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:06+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "addr/stage.json",
+   "api": "API_0701",
+   "trId": "9DP6_API_0701_1790331667057",
+   "ms": 101.9,
+   "ok": true,
+   "rows": 22,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:07+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_find_region",
+   "ms": 835.6,
+   "ok": true,
+   "ts": "2026-09-25T19:21:07+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/searchpopulation.json",
+   "api": "API_0312",
+   "trId": "1Erj_API_0312_1790331669926",
+   "ms": 149.9,
+   "ok": true,
+   "rows": 7,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:09+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/population.json",
+   "api": "API_0301",
+   "trId": "C0jp_API_0301_1790331670069",
+   "ms": 115.7,
+   "ok": true,
+   "rows": 7,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:10+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_population_by_age",
+   "ms": 267.7,
+   "ok": true,
+   "ts": "2026-09-25T19:21:10+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/searchpopulation.json",
+   "api": "API_0312",
+   "trId": "OPXN_API_0312_1790331670538",
+   "ms": 185.4,
+   "ok": true,
+   "rows": 8,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:10+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/population.json",
+   "api": "API_0301",
+   "trId": "QkYf_API_0301_1790331671191",
+   "ms": 630.5,
+   "ok": true,
+   "rows": 8,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:11+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_population_by_age",
+   "ms": 818.0,
+   "ok": true,
+   "ts": "2026-09-25T19:21:11+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/searchpopulation.json",
+   "api": "API_0312",
+   "trId": "ADIq_API_0312_1790331671565",
+   "ms": 112.0,
+   "ok": true,
+   "rows": 15,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:11+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/population.json",
+   "api": "API_0301",
+   "trId": "PTID_API_0301_1790331671701",
+   "ms": 115.2,
+   "ok": true,
+   "rows": 15,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:11+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_population_by_age",
+   "ms": 229.9,
+   "ok": true,
+   "ts": "2026-09-25T19:21:11+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/searchpopulation.json",
+   "api": "API_0312",
+   "trId": "MdUG_API_0312_1790331672241",
+   "ms": 153.2,
+   "ok": true,
+   "rows": 12,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:12+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/population.json",
+   "api": "API_0301",
+   "trId": "SnWq_API_0301_1790331672395",
+   "ms": 143.2,
+   "ok": true,
+   "rows": 12,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:12+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_population_by_age",
+   "ms": 300.4,
+   "ok": true,
+   "ts": "2026-09-25T19:21:12+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/searchpopulation.json",
+   "api": "API_0312",
+   "trId": "ezpb_API_0312_1790331672820",
+   "ms": 152.7,
+   "ok": true,
+   "rows": 13,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:12+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/population.json",
+   "api": "API_0301",
+   "trId": "h=uv_API_0301_1790331672966",
+   "ms": 132.6,
+   "ok": true,
+   "rows": 13,
+   "errCd": 0,
+   "ts": "2026-09-25T19:21:12+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_population_by_age",
+   "ms": 289.2,
+   "ok": true,
+   "ts": "2026-09-25T19:21:12+09:00"
+  }
+ ],
+ "truth_rows": [
+  {
+   "adm_cd": "38111110",
+   "adm_nm": "동읍",
+   "pop65": 4723,
+   "tot_ppltn": 17939,
+   "share_pct": 26.33
+  },
+  {
+   "adm_cd": "38111310",
+   "adm_nm": "북면",
+   "pop65": 6225,
+   "tot_ppltn": 42096,
+   "share_pct": 14.79
+  },
+  {
+   "adm_cd": "38111320",
+   "adm_nm": "대산면",
+   "pop65": 2449,
+   "tot_ppltn": 6911,
+   "share_pct": 35.44
+  },
+  {
+   "adm_cd": "38111510",
+   "adm_nm": "의창동",
+   "pop65": 7804,
+   "tot_ppltn": 47749,
+   "share_pct": 16.34
+  },
+  {
+   "adm_cd": "38111520",
+   "adm_nm": "팔룡동",
+   "pop65": 3399,
+   "tot_ppltn": 25854,
+   "share_pct": 13.15
+  },
+  {
+   "adm_cd": "38111530",
+   "adm_nm": "명곡동",
+   "pop65": 7025,
+   "tot_ppltn": 38484,
+   "share_pct": 18.25
+  },
+  {
+   "adm_cd": "38111540",
+   "adm_nm": "봉림동",
+   "pop65": 6194,
+   "tot_ppltn": 31768,
+   "share_pct": 19.5
+  },
+  {
+   "adm_cd": "38112510",
+   "adm_nm": "반송동",
+   "pop65": 5720,
+   "tot_ppltn": 38269,
+   "share_pct": 14.95
+  },
+  {
+   "adm_cd": "38112520",
+   "adm_nm": "중앙동",
+   "pop65": 4526,
+   "tot_ppltn": 39282,
+   "share_pct": 11.52
+  },
+  {
+   "adm_cd": "38112530",
+   "adm_nm": "상남동",
+   "pop65": 3120,
+   "tot_ppltn": 25736,
+   "share_pct": 12.12
+  },
+  {
+   "adm_cd": "38112540",
+   "adm_nm": "사파동",
+   "pop65": 5605,
+   "tot_ppltn": 43638,
+   "share_pct": 12.84
+  },
+  {
+   "adm_cd": "38112550",
+   "adm_nm": "가음정동",
+   "pop65": 4375,
+   "tot_ppltn": 36610,
+   "share_pct": 11.95
+  },
+  {
+   "adm_cd": "38112560",
+   "adm_nm": "성주동",
+   "pop65": 2597,
+   "tot_ppltn": 26147,
+   "share_pct": 9.93
+  },
+  {
+   "adm_cd": "38112570",
+   "adm_nm": "웅남동",
+   "pop65": 1466,
+   "tot_ppltn": 8680,
+   "share_pct": 16.89
+  },
+  {
+   "adm_cd": "38112580",
+   "adm_nm": "용지동",
+   "pop65": 3745,
+   "tot_ppltn": 25778,
+   "share_pct": 14.53
+  },
+  {
+   "adm_cd": "38113310",
+   "adm_nm": "구산면",
+   "pop65": 1800,
+   "tot_ppltn": 3934,
+   "share_pct": 45.75
+  },
+  {
+   "adm_cd": "38113320",
+   "adm_nm": "진동면",
+   "pop65": 3041,
+   "tot_ppltn": 11585,
+   "share_pct": 26.25
+  },
+  {
+   "adm_cd": "38113330",
+   "adm_nm": "진북면",
+   "pop65": 1353,
+   "tot_ppltn": 3451,
+   "share_pct": 39.21
+  },
+  {
+   "adm_cd": "38113340",
+   "adm_nm": "진전면",
+   "pop65": 1881,
+   "tot_ppltn": 3646,
+   "share_pct": 51.59
+  },
+  {
+   "adm_cd": "38113510",
+   "adm_nm": "현동",
+   "pop65": 2813,
+   "tot_ppltn": 13971,
+   "share_pct": 20.13
+  },
+  {
+   "adm_cd": "38113520",
+   "adm_nm": "가포동",
+   "pop65": 688,
+   "tot_ppltn": 4792,
+   "share_pct": 14.36
+  },
+  {
+   "adm_cd": "38113530",
+   "adm_nm": "월영동",
+   "pop65": 7010,
+   "tot_ppltn": 42454,
+   "share_pct": 16.51
+  },
+  {
+   "adm_cd": "38113540",
+   "adm_nm": "문화동",
+   "pop65": 3073,
+   "tot_ppltn": 10767,
+   "share_pct": 28.54
+  },
+  {
+   "adm_cd": "38113570",
+   "adm_nm": "완월동",
+   "pop65": 2579,
+   "tot_ppltn": 8174,
+   "share_pct": 31.55
+  },
+  {
+   "adm_cd": "38113580",
+   "adm_nm": "자산동",
+   "pop65": 2862,
+   "tot_ppltn": 8781,
+   "share_pct": 32.59
+  },
+  {
+   "adm_cd": "38113640",
+   "adm_nm": "합포동",
+   "pop65": 1824,
+   "tot_ppltn": 6318,
+   "share_pct": 28.87
+  },
+  {
+   "adm_cd": "38113650",
+   "adm_nm": "산호동",
+   "pop65": 3161,
+   "tot_ppltn": 11327,
+   "share_pct": 27.91
+  },
+  {
+   "adm_cd": "38113660",
+   "adm_nm": "반월중앙동",
+   "pop65": 3780,
+   "tot_ppltn": 12889,
+   "share_pct": 29.33
+  },
+  {
+   "adm_cd": "38113670",
+   "adm_nm": "오동동",
+   "pop65": 5613,
+   "tot_ppltn": 17745,
+   "share_pct": 31.63
+  },
+  {
+   "adm_cd": "38113680",
+   "adm_nm": "교방동",
+   "pop65": 4176,
+   "tot_ppltn": 18431,
+   "share_pct": 22.66
+  },
+  {
+   "adm_cd": "38114110",
+   "adm_nm": "내서읍",
+   "pop65": 10628,
+   "tot_ppltn": 59935,
+   "share_pct": 17.73
+  },
+  {
+   "adm_cd": "38114510",
+   "adm_nm": "회원1동",
+   "pop65": 3501,
+   "tot_ppltn": 9305,
+   "share_pct": 37.62
+  },
+  {
+   "adm_cd": "38114520",
+   "adm_nm": "회원2동",
+   "pop65": 2510,
+   "tot_ppltn": 9272,
+   "share_pct": 27.07
+  },
+  {
+   "adm_cd": "38114550",
+   "adm_nm": "회성동",
+   "pop65": 2046,
+   "tot_ppltn": 5219,
+   "share_pct": 39.2
+  },
+  {
+   "adm_cd": "38114560",
+   "adm_nm": "양덕1동",
+   "pop65": 2867,
+   "tot_ppltn": 10142,
+   "share_pct": 28.27
+  },
+  {
+   "adm_cd": "38114570",
+   "adm_nm": "양덕2동",
+   "pop65": 5392,
+   "tot_ppltn": 31684,
+   "share_pct": 17.02
+  },
+  {
+   "adm_cd": "38114580",
+   "adm_nm": "합성1동",
+   "pop65": 2133,
+   "tot_ppltn": 8454,
+   "share_pct": 25.23
+  },
+  {
+   "adm_cd": "38114590",
+   "adm_nm": "합성2동",
+   "pop65": 2202,
+   "tot_ppltn": 8437,
+   "share_pct": 26.1
+  },
+  {
+   "adm_cd": "38114600",
+   "adm_nm": "구암1동",
+   "pop65": 2498,
+   "tot_ppltn": 7981,
+   "share_pct": 31.3
+  },
+  {
+   "adm_cd": "38114610",
+   "adm_nm": "구암2동",
+   "pop65": 2230,
+   "tot_ppltn": 8822,
+   "share_pct": 25.28
+  },
+  {
+   "adm_cd": "38114620",
+   "adm_nm": "봉암동",
+   "pop65": 969,
+   "tot_ppltn": 4005,
+   "share_pct": 24.19
+  },
+  {
+   "adm_cd": "38114630",
+   "adm_nm": "석전동",
+   "pop65": 4240,
+   "tot_ppltn": 15609,
+   "share_pct": 27.16
+  },
+  {
+   "adm_cd": "38115540",
+   "adm_nm": "여좌동",
+   "pop65": 2806,
+   "tot_ppltn": 7621,
+   "share_pct": 36.82
+  },
+  {
+   "adm_cd": "38115550",
+   "adm_nm": "태백동",
+   "pop65": 1405,
+   "tot_ppltn": 3492,
+   "share_pct": 40.23
+  },
+  {
+   "adm_cd": "38115560",
+   "adm_nm": "경화동",
+   "pop65": 2407,
+   "tot_ppltn": 10177,
+   "share_pct": 23.65
+  },
+  {
+   "adm_cd": "38115570",
+   "adm_nm": "병암동",
+   "pop65": 1713,
+   "tot_ppltn": 6726,
+   "share_pct": 25.47
+  },
+  {
+   "adm_cd": "38115580",
+   "adm_nm": "석동",
+   "pop65": 2518,
+   "tot_ppltn": 16706,
+   "share_pct": 15.07
+  },
+  {
+   "adm_cd": "38115590",
+   "adm_nm": "이동",
+   "pop65": 2378,
+   "tot_ppltn": 8226,
+   "share_pct": 28.91
+  },
+  {
+   "adm_cd": "38115600",
+   "adm_nm": "자은동",
+   "pop65": 3249,
+   "tot_ppltn": 19751,
+   "share_pct": 16.45
+  },
+  {
+   "adm_cd": "38115610",
+   "adm_nm": "덕산동",
+   "pop65": 1865,
+   "tot_ppltn": 9009,
+   "share_pct": 20.7
+  },
+  {
+   "adm_cd": "38115620",
+   "adm_nm": "풍호동",
+   "pop65": 3518,
+   "tot_ppltn": 24043,
+   "share_pct": 14.63
+  },
+  {
+   "adm_cd": "38115630",
+   "adm_nm": "웅천동",
+   "pop65": 1914,
+   "tot_ppltn": 13850,
+   "share_pct": 13.82
+  },
+  {
+   "adm_cd": "38115640",
+   "adm_nm": "웅동1동",
+   "pop65": 1788,
+   "tot_ppltn": 8503,
+   "share_pct": 21.03
+  },
+  {
+   "adm_cd": "38115650",
+   "adm_nm": "웅동2동",
+   "pop65": 4940,
+   "tot_ppltn": 45395,
+   "share_pct": 10.88
+  },
+  {
+   "adm_cd": "38115660",
+   "adm_nm": "충무동",
+   "pop65": 3586,
+   "tot_ppltn": 15473,
+   "share_pct": 23.18
+  }
+ ],
+ "truth_citations": [
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사",
+   "year": 2024,
+   "api_id": "API_0312",
+   "tr_id": "TX*M_API_0312_1790331704207",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId TX*M_API_0312_1790331704207 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사(총조사 주요지표)",
+   "year": 2024,
+   "api_id": "API_0301",
+   "tr_id": "l*tR_API_0301_1790331704431",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId l*tR_API_0301_1790331704431 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사",
+   "year": 2024,
+   "api_id": "API_0312",
+   "tr_id": "0Dsa_API_0312_1790331704542",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId 0Dsa_API_0312_1790331704542 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사(총조사 주요지표)",
+   "year": 2024,
+   "api_id": "API_0301",
+   "tr_id": "UgoS_API_0301_1790331705185",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId UgoS_API_0301_1790331705185 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사",
+   "year": 2024,
+   "api_id": "API_0312",
+   "tr_id": "vZw6_API_0312_1790331705319",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId vZw6_API_0312_1790331705319 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사(총조사 주요지표)",
+   "year": 2024,
+   "api_id": "API_0301",
+   "tr_id": "RzCq_API_0301_1790331705455",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId RzCq_API_0301_1790331705455 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사",
+   "year": 2024,
+   "api_id": "API_0312",
+   "tr_id": "OluK_API_0312_1790331705584",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId OluK_API_0312_1790331705584 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사(총조사 주요지표)",
+   "year": 2024,
+   "api_id": "API_0301",
+   "tr_id": "7yzh_API_0301_1790331705731",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId 7yzh_API_0301_1790331705731 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사",
+   "year": 2024,
+   "api_id": "API_0312",
+   "tr_id": "V1yL_API_0312_1790331705870",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사 2024년 기준 · API_0312 · trId V1yL_API_0312_1790331705870 (https://sgis.mods.go.kr)"
+  },
+  {
+   "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+   "survey": "인구주택총조사(총조사 주요지표)",
+   "year": 2024,
+   "api_id": "API_0301",
+   "tr_id": "ttEe_API_0301_1790331706513",
+   "fixture": false,
+   "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 인구주택총조사(총조사 주요지표) 2024년 기준 · API_0301 · trId ttEe_API_0301_1790331706513 (https://sgis.mods.go.kr)"
+  }
+ ],
+ "check": {
+  "ai_rows": 55,
+  "truth_rows": 55,
+  "exact_rows": 55,
+  "mismatch": [],
+  "not_in_truth": [],
+  "truth_not_in_ai": []
+ }
+}

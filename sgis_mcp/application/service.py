@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 from ..domain.admcode import LEVEL_KO, AdmCode
 from ..domain.choropleth import features_from_geojson, quantile_breaks, render_svg
 from ..domain.citation import Citation
-from ..domain.errors import InvalidAdmCode, InvalidArgument
+from ..domain.errors import InvalidAdmCode, InvalidArgument, SgisApiError
 from ..domain.region_match import Region, match_regions, tokenize
 from ..domain.stats import (AGE_TYPES, FIELD_LABELS, HOUSE_TYPES, HOUSEHOLD_TYPES, SUMMARY_FIELDS, class_deg_for_year,
                             parse_number, parse_rows, resolve_age_type, resolve_house_type, resolve_household_type)
@@ -140,10 +140,36 @@ class SgisService:
                     cands.append(self._cand(r.code, r.name, r.full_name))
             walked = [None] + [c["adm_cd"][:n] for c in cands[:1] for n in (2, 5) if len(c["adm_cd"]) > n]
             trs = [self._stage_tr.get(cd) for cd in walked if self._stage_tr.get(cd)]
-            cite = Citation("SGIS 단계별 주소", None, "API_0701", ", ".join(trs) or None,
+            method = "stage"
+            dong = self._dong_by_geocode(q, tokens, cands[0])
+            if dong:  # 법정동 이름(팔용동) ↔ 행정동 이름(팔룡동)처럼 단계 목록에 없는 읍면동
+                cands = [dong] + [c for c in cands if c["adm_cd"] != dong["adm_cd"]]
+                trs.append(dong.pop("_tr"))
+                method = "stage+geocode"
+            cite = Citation("SGIS 단계별 주소", None, "API_0701", ", ".join(t for t in trs if t) or None,
                             self._stage_fixture).to_dict()
-            return {"query": q, "method": "stage", "candidates": cands[:limit], "citation": cite}
+            return {"query": q, "method": method, "candidates": cands[:limit], "citation": cite}
         return self._find_by_geocode(q, limit)
+
+    def _dong_by_geocode(self, q: str, tokens: List[str], top: dict) -> Optional[dict]:
+        """단계 탐색이 시군구에서 멈췄는데 마지막 말이 동·읍·면이면, 지오코딩으로 그 시군구 아래 행정동을 찾는다."""
+        if top["level"] == "eupmyeondong" or not tokens or not tokens[-1].endswith(("동", "읍", "면", "가")):
+            return None
+        try:
+            r = self.port.call("addr/geocodewgs84.json", {"address": q, "resultcount": 1})
+        except SgisApiError:  # 지오코딩 실패(-1·-200 등)는 보조 경로의 실패일 뿐 — 단계 탐색 결과를 그대로 쓴다
+            return None
+        for x in (r.result or {}).get("resultdata") or []:
+            code = _nn(x.get("adm_cd"))
+            if not code or len(code) < 7 or not code.startswith(top["adm_cd"]):
+                continue
+            names = {e.code: e for e in self._stage(code[:5])}
+            hit = names.get(code)
+            name, full = (hit.name, hit.full_name) if hit else (_nn(x.get("adm_nm")) or code, f"{top['full_name']} {_nn(x.get('adm_nm')) or ''}".strip())
+            cand = self._cand(code, name, full)
+            cand["_tr"] = r.tr_id
+            return cand
+        return None
 
     def _find_by_geocode(self, q: str, limit: int) -> dict:
         r = self.port.call("addr/geocodewgs84.json", {"address": q, "resultcount": max(1, min(50, int(limit)))})

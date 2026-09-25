@@ -61,14 +61,19 @@ PROMPT = "{q} 마지막 줄에 '답: <숫자>' 형식으로 숫자 하나만 쓰
 
 
 def ask(question: str, mcp_config: str = None, model: str = None, timeout: int = 240) -> dict:
-    cwd = tempfile.mkdtemp(prefix="sgis-bench-")
+    # 시스템 임시 폴더(/var/folders/…)에서는 claude -p가 멈추는 일이 있었다(2026-09-25 실측) → bench/out/cwd 아래 빈 폴더
+    os.makedirs(os.path.join(OUT, "cwd"), exist_ok=True)
+    cwd = tempfile.mkdtemp(prefix="q-", dir=os.path.join(OUT, "cwd"))
     cmd = ["claude", "-p", PROMPT.format(q=question), "--output-format", "json", "--tools", "", "--strict-mcp-config"]
     if mcp_config:
         cmd += ["--mcp-config", mcp_config, "--allowedTools", "mcp__sgis"]
     if model:
         cmd += ["--model", model]
     t0 = time.time()
-    p = subprocess.run(cmd, cwd=cwd, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout)
+    try:
+        p = subprocess.run(cmd, cwd=cwd, stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:  # 한 문항이 멈춰도 실험 전체는 계속 — 「숫자 없음」으로 집계된다
+        return {"text": "", "error": f"timeout {timeout}s", "sec": round(time.time() - t0, 1)}
     try:
         d = json.loads(p.stdout)
     except ValueError:
@@ -77,12 +82,47 @@ def ask(question: str, mcp_config: str = None, model: str = None, timeout: int =
             "models": sorted((d.get("modelUsage") or {}).keys())}
 
 
+def rescore(answers_path: str) -> dict:
+    """저장된 답(answers.jsonl)을 다시 채점한다 — AI를 다시 부르지 않는다(채점 규칙이 늘었을 때)."""
+    rows = []
+    for line in open(answers_path, encoding="utf-8"):
+        if line.strip():
+            r = json.loads(line)
+            r.update(score(r["truth"], r["answer"].get("text", ""), r["kind"]))
+            rows.append(r)
+    return summarize(rows)
+
+
+def write_summary(truth: dict, s: dict, models: list) -> str:
+    summary = {"year": truth["year"], "n_questions": len(truth["questions"]), "rule": truth["rule"],
+               "models": models, "by_condition": s}
+    json.dump(summary, open(os.path.join(OUT, "summary.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    md = [f"# 정확도 실험 — {time.strftime('%Y-%m-%d %H:%M')}", "",
+          f"질문 {len(truth['questions'])}개(기준연도 {truth['year']}) · 일치 기준 {truth['rule']} · 모델 {', '.join(models)}", "",
+          "| 조건 | 원값 일치 | 오차 중앙값 | 숫자 없음 | 출처 단어 | SGIS 거래번호(trId) |", "|---|---|---|---|---|---|"]
+    for cond, v in s.items():
+        md.append(f"| {'AI 단독' if cond == 'llm' else 'AI + SGIS MCP'} | {v['exact']}/{v['n']} | {v['median_err_pct']}% | "
+                  f"{v['no_number']} | {v['cited']}/{v['n']} | {v.get('tr_cited', 0)}/{v['n']} |")
+    md += ["", "출처 단어 = 답에 SGIS·통계청·KOSIS·출처 등 낱말이 있음(「SGIS에서 확인하세요」도 셈) · "
+           "SGIS 거래번호 = SGIS 쪽 기록과 대조할 수 있는 trId가 답에 있음", "",
+           "정답 trId: " + ", ".join(f"`{t}`" for t in truth["tr_ids"][:6]) + (" …" if len(truth["tr_ids"]) > 6 else "")]
+    open(os.path.join(OUT, "summary.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
+    return "\n".join(md)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--env-file", required=True)
     ap.add_argument("--n-regions", type=int, default=10)
     ap.add_argument("--model")
+    ap.add_argument("--rescore", action="store_true", help="저장된 답만 다시 채점(AI 호출 0)")
     a = ap.parse_args(argv)
+    if a.rescore:
+        truth = json.load(open(os.path.join(OUT, "truth.json"), encoding="utf-8"))
+        rows = [json.loads(x) for x in open(os.path.join(OUT, "answers.jsonl"), encoding="utf-8") if x.strip()]
+        models = sorted({m for r in rows for m in (r["answer"].get("models") or [])})
+        print(write_summary(truth, rescore(os.path.join(OUT, "answers.jsonl")), models))
+        return 0
     os.makedirs(OUT, exist_ok=True)
     settings = load_settings(a.env_file, out_dir=os.path.join(OUT, "maps"))
     if not settings.consumer_key:
@@ -108,18 +148,8 @@ def main(argv=None) -> int:
                 print(cond, q["id"], q["truth"], "→", sc["got"], "✓" if sc["exact"] else "✗", flush=True)
     s = summarize(rows)
     models = sorted({m for r in rows for m in (r["answer"].get("models") or [])})
-    summary = {"year": truth["year"], "n_questions": len(truth["questions"]), "rule": truth["rule"],
-               "models": models, "by_condition": s}
-    json.dump(summary, open(os.path.join(OUT, "summary.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    md = [f"# 정확도 실험 — {time.strftime('%Y-%m-%d %H:%M')}", "",
-          f"질문 {len(truth['questions'])}개(기준연도 {truth['year']}) · 일치 기준 {truth['rule']} · 모델 {', '.join(models)}", "",
-          "| 조건 | 원값 일치 | 오차 중앙값 | 숫자 없음 | 출처 표기 |", "|---|---|---|---|---|"]
-    for cond, v in s.items():
-        md.append(f"| {'AI 단독' if cond == 'llm' else 'AI + SGIS MCP'} | {v['exact']}/{v['n']} | {v['median_err_pct']}% | "
-                  f"{v['no_number']} | {v['cited']}/{v['n']} |")
-    md += ["", "정답 trId: " + ", ".join(f"`{t}`" for t in truth["tr_ids"][:6]) + (" …" if len(truth["tr_ids"]) > 6 else "")]
-    open(os.path.join(OUT, "summary.md"), "w", encoding="utf-8").write("\n".join(md) + "\n")
-    print("\n".join(md))
+    md = write_summary(truth, s, models)
+    print(md)
     return 0
 
 

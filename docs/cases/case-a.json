@@ -1,0 +1,215 @@
+{
+ "question": "SGIS 도구로 2024년 전국사업체조사 기준 '건설 및 토목공사용 기계·장비 임대업'의 시도별 사업체 수와 종사자 수를 조회해 줘. 산업분류 코드는 도구로 직접 찾아. 답은 JSON 한 덩어리로만: {\"class_code\":..., \"class_nm\":..., \"year\":..., \"rows\":[{\"sido\":..., \"adm_cd\":..., \"corp_cnt\":..., \"tot_worker\":...}], \"citations\":[citation.text 원문 …]}",
+ "answer": "```json\n{\"class_code\":\"N7631\",\"class_nm\":\"건설 및 토목공사용 기계ㆍ장비 임대업\",\"year\":2024,\"rows\":[{\"sido\":\"서울특별시\",\"adm_cd\":\"11\",\"corp_cnt\":375,\"tot_worker\":1219},{\"sido\":\"부산광역시\",\"adm_cd\":\"21\",\"corp_cnt\":215,\"tot_worker\":484},{\"sido\":\"대구광역시\",\"adm_cd\":\"22\",\"corp_cnt\":93,\"tot_worker\":270},{\"sido\":\"인천광역시\",\"adm_cd\":\"23\",\"corp_cnt\":149,\"tot_worker\":395},{\"sido\":\"광주광역시\",\"adm_cd\":\"24\",\"corp_cnt\":72,\"tot_worker\":222},{\"sido\":\"대전광역시\",\"adm_cd\":\"25\",\"corp_cnt\":71,\"tot_worker\":152},{\"sido\":\"울산광역시\",\"adm_cd\":\"26\",\"corp_cnt\":104,\"tot_worker\":335},{\"sido\":\"세종특별자치시\",\"adm_cd\":\"29\",\"corp_cnt\":27,\"tot_worker\":61},{\"sido\":\"경기도\",\"adm_cd\":\"31\",\"corp_cnt\":1415,\"tot_worker\":4824},{\"sido\":\"강원특별자치도\",\"adm_cd\":\"32\",\"corp_cnt\":164,\"tot_worker\":419},{\"sido\":\"충청북도\",\"adm_cd\":\"33\",\"corp_cnt\":251,\"tot_worker\":890},{\"sido\":\"충청남도\",\"adm_cd\":\"34\",\"corp_cnt\":289,\"tot_worker\":869},{\"sido\":\"전북특별자치도\",\"adm_cd\":\"35\",\"corp_cnt\":150,\"tot_worker\":356},{\"sido\":\"전라남도\",\"adm_cd\":\"36\",\"corp_cnt\":244,\"tot_worker\":785},{\"sido\":\"경상북도\",\"adm_cd\":\"37\",\"corp_cnt\":289,\"tot_worker\":697},{\"sido\":\"경상남도\",\"adm_cd\":\"38\",\"corp_cnt\":347,\"tot_worker\":939},{\"sido\":\"제주특별자치도\",\"adm_cd\":\"39\",\"corp_cnt\":49,\"tot_worker\":125}],\"citations\":[\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 한국표준산업분류 11차(전국사업체조사) 2024년 기준 · API_0303 · trId CqSh_API_0303_1790331651048 (https://sgis.mods.go.kr)\",\"출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 전국사업체조사 2024년 기준 · API_0304 · trId NNM8_API_0304_1790331653236 (https://sgis.mods.go.kr)\"]}\n```",
+ "sec": 21.4,
+ "turns": 5,
+ "models": [
+  "claude-opus-5-5"
+ ],
+ "calls": [
+  {
+   "kind": "api",
+   "path": "auth/authentication.json",
+   "api": "API_0101",
+   "trId": "5Ql6_API_0101_1790331645828",
+   "ms": 619.7,
+   "ok": true,
+   "rows": 0,
+   "errCd": 0,
+   "ts": "2026-09-25T19:20:45+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/industrycode.json",
+   "api": "API_0303",
+   "trId": "RHaK_API_0303_1790331645948",
+   "ms": 112.8,
+   "ok": true,
+   "rows": 3,
+   "errCd": 0,
+   "ts": "2026-09-25T19:20:45+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_industry_codes",
+   "ms": 733.1,
+   "ok": true,
+   "ts": "2026-09-25T19:20:45+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/industrycode.json",
+   "api": "API_0303",
+   "trId": "uyJK_API_0303_1790331648780",
+   "ms": 617.0,
+   "ok": true,
+   "rows": 4,
+   "errCd": 0,
+   "ts": "2026-09-25T19:20:48+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_industry_codes",
+   "ms": 617.3,
+   "ok": true,
+   "ts": "2026-09-25T19:20:48+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/industrycode.json",
+   "api": "API_0303",
+   "trId": "CqSh_API_0303_1790331651048",
+   "ms": 108.7,
+   "ok": true,
+   "rows": 3,
+   "errCd": 0,
+   "ts": "2026-09-25T19:20:51+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_industry_codes",
+   "ms": 109.0,
+   "ok": true,
+   "ts": "2026-09-25T19:20:51+09:00"
+  },
+  {
+   "kind": "api",
+   "path": "stats/company.json",
+   "api": "API_0304",
+   "trId": "NNM8_API_0304_1790331653236",
+   "ms": 151.2,
+   "ok": true,
+   "rows": 17,
+   "errCd": 0,
+   "ts": "2026-09-25T19:20:53+09:00"
+  },
+  {
+   "kind": "tool",
+   "tool": "sgis_companies",
+   "ms": 153.0,
+   "ok": true,
+   "ts": "2026-09-25T19:20:53+09:00"
+  }
+ ],
+ "truth_citation": {
+  "agency": "국가데이터처 통계지리정보서비스(SGIS) OpenAPI",
+  "survey": "전국사업체조사",
+  "year": 2024,
+  "api_id": "API_0304",
+  "tr_id": "KeWq_API_0304_1790331662958",
+  "fixture": false,
+  "text": "출처: 국가데이터처 통계지리정보서비스(SGIS) OpenAPI · 전국사업체조사 2024년 기준 · API_0304 · trId KeWq_API_0304_1790331662958 (https://sgis.mods.go.kr)"
+ },
+ "truth_rows": [
+  {
+   "adm_cd": "11",
+   "adm_nm": "서울특별시",
+   "corp_cnt": 375,
+   "tot_worker": 1219
+  },
+  {
+   "adm_cd": "21",
+   "adm_nm": "부산광역시",
+   "corp_cnt": 215,
+   "tot_worker": 484
+  },
+  {
+   "adm_cd": "22",
+   "adm_nm": "대구광역시",
+   "corp_cnt": 93,
+   "tot_worker": 270
+  },
+  {
+   "adm_cd": "23",
+   "adm_nm": "인천광역시",
+   "corp_cnt": 149,
+   "tot_worker": 395
+  },
+  {
+   "adm_cd": "24",
+   "adm_nm": "광주광역시",
+   "corp_cnt": 72,
+   "tot_worker": 222
+  },
+  {
+   "adm_cd": "25",
+   "adm_nm": "대전광역시",
+   "corp_cnt": 71,
+   "tot_worker": 152
+  },
+  {
+   "adm_cd": "26",
+   "adm_nm": "울산광역시",
+   "corp_cnt": 104,
+   "tot_worker": 335
+  },
+  {
+   "adm_cd": "29",
+   "adm_nm": "세종특별자치시",
+   "corp_cnt": 27,
+   "tot_worker": 61
+  },
+  {
+   "adm_cd": "31",
+   "adm_nm": "경기도",
+   "corp_cnt": 1415,
+   "tot_worker": 4824
+  },
+  {
+   "adm_cd": "32",
+   "adm_nm": "강원특별자치도",
+   "corp_cnt": 164,
+   "tot_worker": 419
+  },
+  {
+   "adm_cd": "33",
+   "adm_nm": "충청북도",
+   "corp_cnt": 251,
+   "tot_worker": 890
+  },
+  {
+   "adm_cd": "34",
+   "adm_nm": "충청남도",
+   "corp_cnt": 289,
+   "tot_worker": 869
+  },
+  {
+   "adm_cd": "35",
+   "adm_nm": "전북특별자치도",
+   "corp_cnt": 150,
+   "tot_worker": 356
+  },
+  {
+   "adm_cd": "36",
+   "adm_nm": "전라남도",
+   "corp_cnt": 244,
+   "tot_worker": 785
+  },
+  {
+   "adm_cd": "37",
+   "adm_nm": "경상북도",
+   "corp_cnt": 289,
+   "tot_worker": 697
+  },
+  {
+   "adm_cd": "38",
+   "adm_nm": "경상남도",
+   "corp_cnt": 347,
+   "tot_worker": 939
+  },
+  {
+   "adm_cd": "39",
+   "adm_nm": "제주특별자치도",
+   "corp_cnt": 49,
+   "tot_worker": 125
+  }
+ ],
+ "check": {
+  "ai_rows": 17,
+  "truth_rows": 17,
+  "exact_rows": 17,
+  "mismatch": [],
+  "not_in_truth": [],
+  "truth_not_in_ai": []
+ }
+}

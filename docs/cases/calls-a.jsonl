@@ -1,0 +1,9 @@
+{"kind": "api", "path": "auth/authentication.json", "api": "API_0101", "trId": "5Ql6_API_0101_1790331645828", "ms": 619.7, "ok": true, "rows": 0, "errCd": 0, "ts": "2026-09-25T19:20:45+09:00"}
+{"kind": "api", "path": "stats/industrycode.json", "api": "API_0303", "trId": "RHaK_API_0303_1790331645948", "ms": 112.8, "ok": true, "rows": 3, "errCd": 0, "ts": "2026-09-25T19:20:45+09:00"}
+{"kind": "tool", "tool": "sgis_industry_codes", "ms": 733.1, "ok": true, "ts": "2026-09-25T19:20:45+09:00"}
+{"kind": "api", "path": "stats/industrycode.json", "api": "API_0303", "trId": "uyJK_API_0303_1790331648780", "ms": 617.0, "ok": true, "rows": 4, "errCd": 0, "ts": "2026-09-25T19:20:48+09:00"}
+{"kind": "tool", "tool": "sgis_industry_codes", "ms": 617.3, "ok": true, "ts": "2026-09-25T19:20:48+09:00"}
+{"kind": "api", "path": "stats/industrycode.json", "api": "API_0303", "trId": "CqSh_API_0303_1790331651048", "ms": 108.7, "ok": true, "rows": 3, "errCd": 0, "ts": "2026-09-25T19:20:51+09:00"}
+{"kind": "tool", "tool": "sgis_industry_codes", "ms": 109.0, "ok": true, "ts": "2026-09-25T19:20:51+09:00"}
+{"kind": "api", "path": "stats/company.json", "api": "API_0304", "trId": "NNM8_API_0304_1790331653236", "ms": 151.2, "ok": true, "rows": 17, "errCd": 0, "ts": "2026-09-25T19:20:53+09:00"}
+{"kind": "tool", "tool": "sgis_companies", "ms": 153.0, "ok": true, "ts": "2026-09-25T19:20:53+09:00"}

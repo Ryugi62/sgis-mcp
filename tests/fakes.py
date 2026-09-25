@@ -36,7 +36,7 @@ def ok(api_id, result, tr="t"):
     return {"id": api_id, "errCd": 0, "errMsg": "Success", "trId": f"{tr}_{api_id}", "result": result}
 
 
-YEARS = ok("API_1501", {"lin_yr": "2024", "lcorp_yr": "2023", "laff_yr": "2020", "lboudary_yr": "2024",
+YEARS = ok("API_9902", {"lin_yr": "2024", "lcorp_yr": "2023", "laff_yr": "2020", "lboudary_yr": "2024",
                         "tin_yr": ["2015", "2020", "2024"], "tcorp_yr": ["2022", "2023"],
                         "tboudary_yr": ["2023", "2024"], "loa_yr": "2024"})
 SIDOS = ok("API_0701", [{"cd": "11", "addr_name": "서울특별시", "full_addr": "서울특별시"},
@@ -58,7 +58,7 @@ BOUNDARY = {"type": "FeatureCollection", "id": "API_0704", "errCd": 0, "errMsg":
                  "properties": {"adm_cd": "38111530", "adm_nm": "경상남도 창원시 의창구 봉림동"}}]}
 POP = ok("API_0301", [{"adm_cd": "38111510", "adm_nm": "팔용동", "tot_ppltn": "1000", "avg_age": "40.5", "imga_ppltn": "N/A"},
                       {"adm_cd": "38111520", "adm_nm": "명곡동", "tot_ppltn": "2000", "avg_age": "38.0", "imga_ppltn": "N/A"}])
-POP65 = ok("API_0302", [{"adm_cd": "38111510", "adm_nm": "팔용동", "population": "250"},
+POP65 = ok("API_0312", [{"adm_cd": "38111510", "adm_nm": "팔용동", "population": "250"},
                         {"adm_cd": "38111520", "adm_nm": "명곡동", "population": "300"}])
 
 

@@ -1,0 +1,19 @@
+{"kind": "api", "path": "auth/authentication.json", "api": "API_0101", "trId": "4tEd_API_0101_1790331666331", "ms": 106.4, "ok": true, "rows": 0, "errCd": 0, "ts": "2026-09-25T19:21:06+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "MqE5_API_0701_1790331666953", "ms": 623.5, "ok": true, "rows": 17, "errCd": 0, "ts": "2026-09-25T19:21:06+09:00"}
+{"kind": "api", "path": "addr/stage.json", "api": "API_0701", "trId": "9DP6_API_0701_1790331667057", "ms": 101.9, "ok": true, "rows": 22, "errCd": 0, "ts": "2026-09-25T19:21:07+09:00"}
+{"kind": "tool", "tool": "sgis_find_region", "ms": 835.6, "ok": true, "ts": "2026-09-25T19:21:07+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "1Erj_API_0312_1790331669926", "ms": 149.9, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:21:09+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "C0jp_API_0301_1790331670069", "ms": 115.7, "ok": true, "rows": 7, "errCd": 0, "ts": "2026-09-25T19:21:10+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 267.7, "ok": true, "ts": "2026-09-25T19:21:10+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "OPXN_API_0312_1790331670538", "ms": 185.4, "ok": true, "rows": 8, "errCd": 0, "ts": "2026-09-25T19:21:10+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "QkYf_API_0301_1790331671191", "ms": 630.5, "ok": true, "rows": 8, "errCd": 0, "ts": "2026-09-25T19:21:11+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 818.0, "ok": true, "ts": "2026-09-25T19:21:11+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "ADIq_API_0312_1790331671565", "ms": 112.0, "ok": true, "rows": 15, "errCd": 0, "ts": "2026-09-25T19:21:11+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "PTID_API_0301_1790331671701", "ms": 115.2, "ok": true, "rows": 15, "errCd": 0, "ts": "2026-09-25T19:21:11+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 229.9, "ok": true, "ts": "2026-09-25T19:21:11+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "MdUG_API_0312_1790331672241", "ms": 153.2, "ok": true, "rows": 12, "errCd": 0, "ts": "2026-09-25T19:21:12+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "SnWq_API_0301_1790331672395", "ms": 143.2, "ok": true, "rows": 12, "errCd": 0, "ts": "2026-09-25T19:21:12+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 300.4, "ok": true, "ts": "2026-09-25T19:21:12+09:00"}
+{"kind": "api", "path": "stats/searchpopulation.json", "api": "API_0312", "trId": "ezpb_API_0312_1790331672820", "ms": 152.7, "ok": true, "rows": 13, "errCd": 0, "ts": "2026-09-25T19:21:12+09:00"}
+{"kind": "api", "path": "stats/population.json", "api": "API_0301", "trId": "h=uv_API_0301_1790331672966", "ms": 132.6, "ok": true, "rows": 13, "errCd": 0, "ts": "2026-09-25T19:21:12+09:00"}
+{"kind": "tool", "tool": "sgis_population_by_age", "ms": 289.2, "ok": true, "ts": "2026-09-25T19:21:12+09:00"}

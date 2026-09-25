@@ -43,7 +43,7 @@
 
 ## 5. 유스케이스와 수용 기준 (Given / When / Then)
 - **UC-1 기준연도** `sgis_data_years` — G 가짜 `year/data.json` W 호출 T 최신 인구·사업체·경계 연도와 전체 목록.
-- **UC-2 지역 찾기** `sgis_find_region` — G 시도·시군구·읍면동 단계 목록 W 「경남 창원시 의창구 팔용동」 T 8자리 코드 1건이 1순위. 시도를 못 찾으면 지오코딩으로 대체(how=geocode).
+- **UC-2 지역 찾기** `sgis_find_region` — G 시도·시군구·읍면동 단계 목록 W 「경남 창원시 의창구 팔용동」 T 8자리 코드 1건이 1순위. 시도를 못 찾으면 지오코딩으로 대체(method=geocode). 단계 목록이 시군구에서 멈췄는데 마지막 말이 동·읍·면·가면 지오코딩으로 그 시군구 아래 행정동을 1순위로(method=stage+geocode — 라이브 실측: 사람은 법정동 「팔용동」, SGIS 행정동은 「팔룡동」 38111520). 지오코딩이 실패하면 단계 결과 그대로.
 - **UC-3 총조사 주요지표** `sgis_population_summary` — T 총인구·평균나이·인구밀도·노령화지수 … 숫자형 + 출처.
 - **UC-4 연령·성별 인구** `sgis_population_by_age` — `age_type`(코드 01~41 또는 「65세이상」 같은 이름) · `gender` → 인구수 + 출처. 비율(`share_pct` = 인구 ÷ 같은 지역 총인구 × 100)은 서버가 계산해 붙인다(AI 암산 오류 방지).
 - **UC-5 가구** `sgis_households` — `household_type`(A0 = 1인가구 …).
@@ -66,10 +66,10 @@
 
 | 도구 | SGIS API | 문서 id |
 |---|---|---|
-| sgis_data_years | `year/data.json` | API_1501 |
+| sgis_data_years | `year/data.json` | API_1501 (라이브 응답 id API_9902) |
 | sgis_find_region | `addr/stage.json` (+ `addr/geocodewgs84.json`) | API_0701 |
 | sgis_population_summary | `stats/population.json` | API_0301 |
-| sgis_population_by_age | `stats/searchpopulation.json` | API_0302 |
+| sgis_population_by_age | `stats/searchpopulation.json` | API_0302 (라이브 응답 id API_0312) |
 | sgis_households | `stats/household.json` | API_0305 |
 | sgis_houses | `stats/house.json` | API_0306 |
 | sgis_companies | `stats/company.json` | API_0304 |
@@ -80,7 +80,7 @@
 | sgis_choropleth | `boundary/hadmarea.geojson` + `stats/population.json` (+ `searchpopulation`) | API_0704 |
 
 - 코드표(개발지원센터 dataCode 팝업): 연령 01~41(24 = 65세이상 · 22 = 15세미만 · 23 = 15~64세) · 세대유형 A0 = 1인가구 · 주택유형 01 단독 · 02 아파트 · 좌표계 WGS84 = EPSG:4326 · UTM-K = EPSG:5179.
-- **가정(라이브 검증 대상)**: `errCd -100`은 「결과 없음」으로 빈 목록 처리 · `accessTimeout`이 1e12 이상이면 밀리초.
+- **라이브 실측(2026-09-25, 테스트키 — `tests/test_live_facts.py`)**: `accessTimeout` = **밀리초** epoch, 발급 + 240분(문서의 「초」와 다름 — 1e12 이상이면 밀리초로 보는 처리 유지) · `errCd -100` = 「검색결과가 존재하지 않습니다.」 → 빈 목록 · `errCd -200` = 「검색할 주소를 확인해주세요」(지오코딩) → 도구 오류 · `errCd -1` = 「서버에서 처리 중 에러가 발생하였습니다.」(시도 없는 짧은 주소 지오코딩 「창원 상남동」) → 도구 오류 · `addr/stage` 시군구 이름 = 「창원시 의창구」(cd 5자리 38111, full_addr 「경상남도 창원시 의창구」) · 응답 `id`는 문서 번호와 다를 수 있다(위 표 괄호).
 
 ## 7. 레이어 (역방향 import 금지)
 `sgis_mcp/domain` ← `sgis_mcp/application` ← `sgis_mcp/adapters` ← `sgis_mcp/infrastructure`
@@ -99,3 +99,6 @@
   W 같은 질문을 ①AI 단독(`claude -p`, 내장 도구·웹 끔) ②AI + 이 서버로 묻는다 T 조건별 원값 일치 수 · 오차 중앙값 · 출처 표기 수.
 - 일치 기준(실행 전 고정): 인구 상대오차 ≤ 0.5% · 비율 절대오차 ≤ 0.1%p. 채점은 `bench/scoring.py`(순수 함수, 테스트).
 - 결과는 `bench/out/`(정답 trId 포함). 숫자는 실행 결과만 인용한다.
+- 출처 지표 2개: `cited`(출처 낱말 — AI 단독도 「SGIS에서 확인하세요」로 걸린다) · `tr_cited`(SGIS 거래번호 trId가 답에 있음 = 대조 가능한 출처). 채점 규칙이 늘면 `--rescore`로 저장된 답만 다시 채점(AI 호출 0).
+- `claude -p` 작업 폴더는 `bench/out/cwd/` 아래 빈 폴더 — 시스템 임시 폴더에선 응답 없이 멈췄다(2026-09-25 실측 3/3). 한 문항 시간 초과는 「숫자 없음」으로 집계하고 계속한다.
+- 2026-09-25 실행 기록 사본(공개용): `docs/bench/`(summary.md · truth.json · answers.jsonl).

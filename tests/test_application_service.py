@@ -15,7 +15,7 @@ def test_uc1_data_years_latest():
     s, _ = svc()
     out = s.data_years()
     assert out["latest"]["census"] == 2024 and out["latest"]["company"] == 2023 and out["latest"]["boundary"] == 2024
-    assert out["citation"]["api_id"] == "API_1501"
+    assert out["citation"]["api_id"] == "API_9902"
 
 
 def test_uc2_find_region_walks_three_levels():
@@ -195,3 +195,42 @@ def test_uc4_share_pct_computed_by_server():
     assert len(out["citations"]) == 2 and "share_note" in out
     out2 = s.population_by_age("38111", age_type="65세이상", with_share=False)
     assert "share_pct" not in out2["rows"][0]
+
+
+def test_uc2_legal_dong_name_resolves_via_geocode_under_stage_match():
+    # 2026-09-25 라이브: SGIS 단계별 주소의 행정동은 「팔룡동」, 사람들은 법정동 이름 「팔용동」으로 묻는다.
+    # 단계 탐색은 의창구(38111)에서 멈췄다 → 마지막 토큰이 동·읍·면으로 끝나면 지오코딩으로 그 아래 행정동을 찾는다.
+    emd = ok("API_0701", [{"cd": "38111520", "addr_name": "팔룡동", "full_addr": "경상남도 창원시 의창구 팔룡동"},
+                          {"cd": "38111530", "addr_name": "명곡동", "full_addr": "경상남도 창원시 의창구 명곡동"}])
+    geo = ok("API_0707", {"totalcount": "1", "resultdata": [
+        {"sido_cd": "38", "sido_nm": "경상남도", "sgg_cd": "38111", "sgg_nm": "창원시 의창구", "adm_cd": "38111520",
+         "adm_nm": "팔용동", "leg_nm": "팔용동", "x": "128.62", "y": "35.24", "addr_type": "3"}]}, tr="g")
+    s, port = svc([("addr/stage.json", {"cd": "38111"}, emd), ("addr/geocodewgs84.json", {}, geo)])
+    out = s.find_region("경남 창원시 의창구 팔용동")
+    top = out["candidates"][0]
+    assert top["adm_cd"] == "38111520" and top["level"] == "eupmyeondong"
+    assert top["full_name"] == "경상남도 창원시 의창구 팔룡동"  # 이름은 SGIS 행정동 목록 기준
+    assert out["method"] == "stage+geocode" and "g_API_0707" in out["citation"]["tr_id"]
+
+
+def test_uc2_no_geocode_when_stage_reaches_dong():
+    s, port = svc()
+    s.find_region("경남 창원시 의창구 팔용동")
+    assert not any(p == "addr/geocodewgs84.json" for p, _ in port.calls)
+
+
+def test_uc2_geocode_failure_keeps_stage_result():
+    # 라이브: 지오코딩이 -1(「서버에서 처리 중 에러가 발생하였습니다.」)·-200을 줄 수 있다 → 단계 탐색 결과는 그대로 돌려준다
+    from sgis_mcp.domain.errors import SgisApiError
+    emd = ok("API_0701", [{"cd": "38111520", "addr_name": "팔룡동", "full_addr": "경상남도 창원시 의창구 팔룡동"}])
+    s, port = svc([("addr/stage.json", {"cd": "38111"}, emd)])
+    real = port.call
+
+    def call(path, params):
+        if path == "addr/geocodewgs84.json":
+            raise SgisApiError(-1, "서버에서 처리 중 에러가 발생하였습니다.", "API_0707", "e")
+        return real(path, params)
+
+    port.call = call
+    out = s.find_region("경남 창원시 의창구 팔용동")
+    assert out["method"] == "stage" and out["candidates"][0]["adm_cd"] == "38111"
